@@ -11,8 +11,10 @@ namespace Ga.Infrastructure
         private bool IsNegative { get { return value[0] == 1; } }
         private List<byte> value = new List<byte>();
 
+        /// <summary>Gets the value as an enumeration of 0 and 1.</summary>
         public IEnumerable<byte> Value { get { return value; } }
 
+        /// <summary>Gets the numeric value.</summary>
         public double NumericValue
         {
             get
@@ -38,10 +40,20 @@ namespace Ga.Infrastructure
             }
         }
 
+        /// <summary>Initializes a new instance of the <see cref="Binary"/> class.</summary>
         public Binary() { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Binary"/> class.
+        /// </summary>
+        /// <param name="x">String of 0 and 1</param>
         public Binary(string x) : this(x, 0) { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Binary"/> class.
+        /// </summary>
+        /// <param name="x">String of 0 and 1</param>
+        /// <param name="scale">Number of decimal places</param>
         public Binary(string x, int scale)
         {
             var fractionLength = GetFractionLength(scale);
@@ -49,10 +61,26 @@ namespace Ga.Infrastructure
             value.AddRange(x.ToCharArray().Select(y => (byte)char.GetNumericValue(y)));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Binary"/> class.
+        /// </summary>
+        /// <param name="x">Numeric value</param>
         public Binary(double x) : this(x, 0) { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Binary"/> class.
+        /// </summary>
+        /// <param name="x">Numeric value</param>
+        /// <param name="scale">Number of decimal places</param>
         public Binary(double x, int scale) : this(x, scale, x, -x) { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Binary"/> class.
+        /// </summary>
+        /// <param name="x">Numeric value</param>
+        /// <param name="scale">Number of decimal places</param>
+        /// <param name="maxValue">Maximum value</param>
+        /// <param name="minValue">Minumum value</param>
         public Binary(double x, int scale, double maxValue, double minValue)
         {
             ResolveMinusSign(ref x);
@@ -72,11 +100,21 @@ namespace Ga.Infrastructure
             AdjustValue(scale, Math.Max(maxValue, -minValue));
         }
 
+        /// <summary>
+        /// Concats two binaries.
+        /// </summary>
+        /// <param name="other">Second binary</param>
+        /// <returns>Concatenation of the binaries</returns>
         public Binary Concat(Binary other)
         {
             return new Binary { value = this.value.Concat(other.value).ToList() };
         }
 
+        /// <summary>
+        /// Performs AND operation on the binaries.
+        /// </summary>
+        /// <param name="other">Second binary</param>
+        /// <returns>Result of the AND operation</returns>
         public Binary And(Binary other)
         {
             if (value.Count != other.value.Count)
@@ -98,11 +136,21 @@ namespace Ga.Infrastructure
             return result;
         }
 
+        /// <summary>
+        /// Performs AND operation on the binaries.
+        /// </summary>
+        /// <param name="other">Second binary</param>
+        /// <returns>Result of the AND operation</returns>
         public static Binary operator &(Binary b1, Binary b2)
         {
             return b1.And(b2);
         }
 
+        /// <summary>
+        /// Performs OR operation on the binaries.
+        /// </summary>
+        /// <param name="other">Second binary</param>
+        /// <returns>Result of the OR operation</returns>
         public Binary Or(Binary other)
         {
             if (value.Count != other.value.Count)
@@ -124,16 +172,31 @@ namespace Ga.Infrastructure
             return result;
         }
 
+        /// <summary>
+        /// Performs OR operation on the binaries.
+        /// </summary>
+        /// <param name="other">Second binary</param>
+        /// <returns>Result of the OR operation</returns>
         public static Binary operator |(Binary b1, Binary b2)
         {
             return b1.Or(b2);
         }
 
+        /// <summary>
+        /// Returns the substring of the binary.
+        /// </summary>
+        /// <param name="start">Starting index</param>
+        /// <param name="count">Number of digits to take</param>
+        /// <returns>Substring of the binary</returns>
         public Binary Subbinary(int start, int count)
         {
             return new Binary { value = value.GetRange(start, count) };
         }
 
+        /// <summary>
+        /// Reverts the digit at the specified index.
+        /// </summary>
+        /// <param name="i">The index of the digit to revert</param>
         public void Revert(int i)
         {
             value[i] = (byte)(value[i] == 1 ? 0 : 1);
