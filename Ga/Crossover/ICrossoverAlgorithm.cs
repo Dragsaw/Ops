@@ -10,6 +10,6 @@ namespace Ga.Crossover
 {
     public interface ICrossoverAlgorithm
     {
-        IIndividual Crossover(IPare pare);
+        IIndividual Crossover(IPare pare, int generation);
     }
 }

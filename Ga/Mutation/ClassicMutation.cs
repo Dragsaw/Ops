@@ -21,6 +21,7 @@ namespace Ga.Mutation
 
         public IIndividual Mutate(IIndividual individual)
         {
+            bool mutationHappened = false;
             var binary = individual.Bits;
             for (int i = 0; i < individual.BinaryLength; i++)
             {
@@ -28,12 +29,18 @@ namespace Ga.Mutation
                 if (mutate)
                 {
                     binary.Revert(i);
+                    mutationHappened = true;
                 }
+            }
+
+            if(mutationHappened == false)
+            {
+                return null;
             }
 
             var newIndividual = individual.Clone();
             newIndividual.Update(binary);
-
+            newIndividual.IsMutant = true;
             return newIndividual;
         }
     }

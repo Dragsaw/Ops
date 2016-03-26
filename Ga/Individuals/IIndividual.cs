@@ -21,8 +21,13 @@ namespace Ga.Individuals
         double Health { get; set; }
         /// <summary>Indicates if individual is valid.</summary>
         bool IsHealthy { get; }
+        /// <summary>Indicates if the individual is a mutant.</summary>
+        bool IsMutant { get; set; }
+
+        /// <summary>
+        /// Creates a deep copy of the object.
+        /// </summary>
+        /// <returns>Copy of the object.</returns>
         IIndividual Clone();
-        /// <summary>Gets of sets the label of the individual.</summary>
-        string Label { get; }
     }
 }

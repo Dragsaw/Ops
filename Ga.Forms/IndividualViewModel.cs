@@ -7,7 +7,7 @@ namespace Ga.Forms
     {
         private IIndividual x;
 
-        public string Id { get { return x.Label; } }
+        public string Id { get { return string.Format("{0}.{1}{2}", x.Generation, x.Id, x.IsMutant ? "m" : string.Empty); } }
 
         public double X { get { return x.Genome.First(x => x.Name == "X").Value; } }
 

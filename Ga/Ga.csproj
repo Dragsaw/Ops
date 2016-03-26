@@ -41,25 +41,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Algorithm.cs" />
+    <Compile Include="ParallelGeneticAlgorithm.cs" />
     <Compile Include="Chromosomes\Chromosome.cs" />
     <Compile Include="Chromosomes\IChromosome.cs" />
     <Compile Include="Crossover\ICrossoverAlgorithm.cs" />
-    <Compile Include="Crossover\SinglePointCrossover.cs" />
+    <Compile Include="Crossover\SinglePointCrossoverAlgorithm.cs" />
     <Compile Include="Individuals\IIndividual.cs" />
     <Compile Include="Individuals\Individual.cs" />
     <Compile Include="Infrastructure\Binary.cs" />
     <Compile Include="Infrastructure\IBinaryEntity.cs" />
     <Compile Include="Initialization\IInitializationAlgorithm.cs" />
-    <Compile Include="Initialization\RandomInitialization.cs" />
+    <Compile Include="Initialization\RandomInitializationAlgorithm.cs" />
     <Compile Include="Mutation\ClassicMutation.cs" />
     <Compile Include="Mutation\IMutationAlgorithm.cs" />
     <Compile Include="Paring\IParingAlgorithm.cs" />
     <Compile Include="Paring\IPare.cs" />
     <Compile Include="Paring\Pare.cs" />
-    <Compile Include="Paring\RandomParing.cs" />
+    <Compile Include="Paring\RandomParingAlgotrithm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Selection\ISelectionAlgorithm.cs" />
+    <Compile Include="Selection\BestNSelectionAlgorithm.cs" />
     <Compile Include="Selection\RandomSelectionAlgorithm.cs" />
   </ItemGroup>
   <ItemGroup />
