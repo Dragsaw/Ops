@@ -1,5 +1,6 @@
 ﻿using Ga.Chromosomes;
 using Ga.Infrastructure;
+using Ga.Paring;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace Ga.Individuals
         bool IsHealthy { get; }
         /// <summary>Indicates if the individual is a mutant.</summary>
         bool IsMutant { get; set; }
+        /// <summary>Gets or sets the pare of parent individuals.</summary>
+        IPare Parents { get; set; }
 
         /// <summary>
         /// Creates a deep copy of the object.

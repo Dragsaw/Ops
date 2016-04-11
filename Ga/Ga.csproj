@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\IndividualsEventArgs.cs" />
     <Compile Include="ParallelGeneticAlgorithm.cs" />
     <Compile Include="Chromosomes\Chromosome.cs" />
     <Compile Include="Chromosomes\IChromosome.cs" />

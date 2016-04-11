@@ -7,7 +7,9 @@ namespace Ga.Forms
     {
         private IIndividual x;
 
-        public string Id { get { return string.Format("{0}.{1}{2}", x.Generation, x.Id, x.IsMutant ? "m" : string.Empty); } }
+        public int Id { get { return x.Id; } }
+
+        public int Generation { get { return x.Generation; } }
 
         public double X { get { return x.Genome.First(x => x.Name == "X").Value; } }
 
@@ -16,6 +18,10 @@ namespace Ga.Forms
         public double Health { get { return x.Health; } }
 
         public string Binary { get { return x.Bits.ToString(); } }
+
+        public bool IsHealthy { get { return x.IsHealthy; } }
+
+        public bool IsMutant { get { return x.IsMutant; } }
 
         public IndividualViewModel(IIndividual x)
         {

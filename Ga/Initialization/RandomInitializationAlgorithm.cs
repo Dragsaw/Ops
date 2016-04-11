@@ -31,12 +31,12 @@ namespace Ga.Initialization
         private IIndividual GenerateIndividual()
         {
             var individual = new Individual { Generation = 1 };
-            chromosomes.AsParallel().ForAll(c =>
+            foreach (var c in chromosomes)
             {
                 var newChromosome = c.Clone();
                 newChromosome.Value = random.Next((int)c.LowerLimit, (int)c.UpperLimit) + random.NextDouble();
                 individual.Genome.Add(newChromosome);
-            });
+            }
             return individual;
         }
     }

@@ -13,7 +13,7 @@ namespace Ga.Chromosomes
         private double value;
 
         /// <summary>Gets the length of binary representation.</summary>
-        public int BinaryLength { get { return Bits.Value.Count(); } }
+        public int BinaryLength { get { return new Binary(UpperLimit, Scale, UpperLimit, LowerLimit).Value.Count(); } }
 
         /// <summary>Gets the binary representation.</summary>
         public Binary Bits { get { return new Binary(Value, Scale, UpperLimit, LowerLimit); } }

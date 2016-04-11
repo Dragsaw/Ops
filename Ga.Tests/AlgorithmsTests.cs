@@ -39,7 +39,7 @@ namespace Ga.Tests
                 Second = new Individual { Genome = new List<IChromosome> { new Chromosome { Value = 3, LowerLimit = 0, UpperLimit = 3 } } }
             };
             var result = ca.Crossover(pare, 2);
-            Assert.AreEqual("111", result.Bits.ToString());
+            Assert.AreEqual("111", result.ElementAt(0).Bits.ToString());
         }
     }
 }

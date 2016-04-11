@@ -35,7 +35,15 @@ namespace Ga.Infrastructure
 
                 var intFraction = Convert.ToInt32(fraction, 2);
                 var doubleStringFraction = string.Concat("0.", intFraction.ToString());
-                result = Convert.ToInt32(intPart, 2) + double.Parse(doubleStringFraction, CultureInfo.InvariantCulture);
+                try
+                {
+                    result = Convert.ToInt32(intPart, 2) + double.Parse(doubleStringFraction, CultureInfo.InvariantCulture);
+                }
+                catch (OverflowException)
+                {
+                    return double.NaN;
+                }
+
                 return IsNegative ? -result : result;
             }
         }
@@ -84,17 +92,19 @@ namespace Ga.Infrastructure
         public Binary(double x, int scale, double maxValue, double minValue)
         {
             ResolveMinusSign(ref x);
-
             long intPart = (long)Math.Floor(x);
             value.AddRange(BitsFromInteger(intPart));
 
-            double fraction = x - intPart;
-            if (fraction != 0)
+            double fraction = Math.Round(x - intPart, scale);
+            if (scale > 0)
             {
                 pointAt = value.Count;
-                var strFraction = fraction.ToString(CultureInfo.InvariantCulture);
-                var intFraction = long.Parse(strFraction.Substring(strFraction.IndexOf('.') + 1));
-                value.AddRange(BitsFromInteger(intFraction));
+                if (fraction != 0)
+                {
+                    var strFraction = fraction.ToString(CultureInfo.InvariantCulture);
+                    var intFraction = long.Parse(strFraction.Substring(strFraction.IndexOf('.') + 1));
+                    value.AddRange(BitsFromInteger(intFraction));
+                }
             }
 
             AdjustValue(scale, Math.Max(maxValue, -minValue));

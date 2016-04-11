@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ga.Individuals;
 using Ga.Infrastructure;
+using Ga.Paring;
 
 namespace Ga.Mutation
 {
@@ -33,14 +34,16 @@ namespace Ga.Mutation
                 }
             }
 
-            if(mutationHappened == false)
+            if (mutationHappened == false)
             {
                 return null;
             }
 
             var newIndividual = individual.Clone();
             newIndividual.Update(binary);
+            newIndividual.Id = individual.Id;
             newIndividual.IsMutant = true;
+            newIndividual.Parents = new Pare { First = individual, Second = null };
             return newIndividual;
         }
     }

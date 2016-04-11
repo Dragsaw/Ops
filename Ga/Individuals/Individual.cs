@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ga.Chromosomes;
 using Ga.Infrastructure;
+using Ga.Paring;
 
 namespace Ga.Individuals
 {
@@ -47,6 +48,8 @@ namespace Ga.Individuals
 
         public bool IsMutant { get; set; }
 
+        public IPare Parents { get; set; }
+
         public void Update(Binary b)
         {
             var currentPosition = 0;
@@ -64,7 +67,6 @@ namespace Ga.Individuals
                 Generation = this.Generation,
                 Genome = this.Genome.Select(x => x.Clone()).ToList(),
                 Health = this.Health,
-                Id = count
             };
         }
     }
