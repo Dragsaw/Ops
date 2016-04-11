@@ -32,10 +32,10 @@ namespace Ga.Tests
         [TestMethod]
         public void Can_Restore_Chromosome_Value()
         {
-            var c = new Chromosome { LowerLimit = 0, UpperLimit = 4, Value = 3 };
-            c.Update(new Binary("0010"));
+            var c = new Chromosome { LowerLimit = 0, UpperLimit = 4, Value = 3, Scale = 1 };
+            c.Update(new Binary("00100000", 1));
             var b = c.Bits;
-            Assert.AreEqual("0010", b.ToString(), "bin representations differ");
+            Assert.AreEqual("00100000", b.ToString(), "bin representations differ");
             Assert.AreEqual(2, c.Value, "chromosome value is different");
             Assert.AreEqual(c.Value, b.NumericValue, "numeric values differ");
             Assert.AreEqual(c.BinaryLength, b.Value.Count(), "lengths are not equal");

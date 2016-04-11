@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace Ga.Paring
 {
-    public class RandomParing : IParingAlgorithm
+    public class RandomParingAlgotrithm : IParingAlgorithm
     {
         int paresCount;
         Random random;
 
-        public RandomParing(int paresCount)
+        public RandomParingAlgotrithm(int paresCount)
         {
             this.paresCount = paresCount;
             random = new Random(DateTime.Now.Millisecond);

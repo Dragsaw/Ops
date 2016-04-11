@@ -18,7 +18,7 @@ namespace Ga.Tests
         [TestMethod]
         public void Can_Select_Best_Individuals()
         {
-            var sa = new RandomSelectionAlgorithm(1);
+            var sa = new BestNSelectionAlgorithm(1);
             var individuals = new List<Individual>
             {
                 new Individual { Health=1 },
@@ -32,14 +32,14 @@ namespace Ga.Tests
         [TestMethod]
         public void Can_Crossover_At_One_Point()
         {
-            var ca = new SinglePointCrossover(2);
+            var ca = new SinglePointCrossoverAlgorithm(2);
             var pare = new Pare
             {
                 First = new Individual { Genome = new List<IChromosome> { new Chromosome { Value = -2, LowerLimit = 0, UpperLimit = 3 } } },
                 Second = new Individual { Genome = new List<IChromosome> { new Chromosome { Value = 3, LowerLimit = 0, UpperLimit = 3 } } }
             };
-            var result = ca.Crossover(pare);
-            Assert.AreEqual("111", result.Bits.ToString());
+            var result = ca.Crossover(pare, 2);
+            Assert.AreEqual("111", result.ElementAt(0).Bits.ToString());
         }
     }
 }

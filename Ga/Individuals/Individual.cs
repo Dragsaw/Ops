@@ -5,16 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Ga.Chromosomes;
 using Ga.Infrastructure;
+using Ga.Paring;
 
 namespace Ga.Individuals
 {
     public class Individual : IIndividual
     {
+        private static int count;
+
         public Individual()
         {
             Genome = new List<IChromosome>();
-            Count++;
-            Id = Count;
+            count++;
+            Id = count;
         }
 
         public Binary Bits
@@ -25,8 +28,6 @@ namespace Ga.Individuals
             }
         }
 
-        public static int Count { get; set; }
-
         public int Generation { get; set; }
 
         public IList<IChromosome> Genome { get; set; }
@@ -34,8 +35,6 @@ namespace Ga.Individuals
         public double Health { get; set; }
 
         public int Id { get; set; }
-
-        public string Label { get { return string.Format("{0}.{1}", Generation, Id); } }
 
         public bool IsHealthy
         {
@@ -46,6 +45,10 @@ namespace Ga.Individuals
         }
 
         public int BinaryLength { get { return Genome.Sum(x => x.BinaryLength); } }
+
+        public bool IsMutant { get; set; }
+
+        public IPare Parents { get; set; }
 
         public void Update(Binary b)
         {
@@ -64,7 +67,6 @@ namespace Ga.Individuals
                 Generation = this.Generation,
                 Genome = this.Genome.Select(x => x.Clone()).ToList(),
                 Health = this.Health,
-                Id = Count
             };
         }
     }

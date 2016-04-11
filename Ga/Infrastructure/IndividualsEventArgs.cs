@@ -1,15 +1,14 @@
 ﻿using Ga.Individuals;
-using Ga.Paring;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ga.Crossover
+namespace Ga.Infrastructure
 {
-    public interface ICrossoverAlgorithm
+    public class IndividualsEventArgs : EventArgs
     {
-        IEnumerable<IIndividual> Crossover(IPare pare, int generation);
+        public IEnumerable<IIndividual> NewIndividuals { get; set; }
     }
 }

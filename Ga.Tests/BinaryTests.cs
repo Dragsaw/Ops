@@ -33,10 +33,10 @@ namespace Ga.Tests
         public void Can_Parse_Double()
         {
             double number = 2.2;
-            Binary b = new Binary(number);
+            Binary b = new Binary(number, 1);
             var resultBin = b.ToString();
             var resultDouble = b.NumericValue;
-            Assert.AreEqual("01010", resultBin, "double to bin failed");
+            Assert.AreEqual("0100010", resultBin, "double to bin failed");
             Assert.AreEqual(number, resultDouble, "bin to double failed");
         }
 
@@ -44,10 +44,10 @@ namespace Ga.Tests
         public void Can_Parse_Negative_Double()
         {
             double number = -2.2;
-            Binary b = new Binary(number);
+            Binary b = new Binary(number, 1);
             var resultBin = b.ToString();
             var resultDouble = b.NumericValue;
-            Assert.AreEqual("11010", resultBin, "double to bin failed");
+            Assert.AreEqual("1100010", resultBin, "double to bin failed");
             Assert.AreEqual(number, resultDouble, "bin to double failed");
         }
 
@@ -133,6 +133,28 @@ namespace Ga.Tests
             var strResult = b.ToString();
             Assert.AreEqual(str, strResult, "str to bin failed");
             Assert.AreEqual(-2.2, intResult, "bin from str to int failed");
+        }
+
+        [TestMethod]
+        public void Can_Parse_Double_Under_Limit()
+        {
+            var number = 2.2;
+            var b = new Binary(number, 1, 8, 0);
+            var doubleResult = b.NumericValue;
+            var strResult = b.ToString();
+            Assert.AreEqual("000100010", strResult, "double to bin failed");
+            Assert.AreEqual(number, doubleResult, "bin to double failed");
+        }
+
+        [TestMethod]
+        public void Can_Parse_Eight_Point_Two()
+        {
+            var number = 8.2;
+            var b = new Binary(number, 1, 10, 0);
+            var doubleResult = b.NumericValue;
+            var strResult = b.ToString();
+            Assert.AreEqual("010000010", strResult, "double to bin failed");
+            Assert.AreEqual(number, doubleResult, "bin to double failed");
         }
     }
 }
