@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Crossover\DoublePointCrossoverAlgorithm.cs" />
     <Compile Include="Infrastructure\IndividualsEventArgs.cs" />
     <Compile Include="ParallelGeneticAlgorithm.cs" />
     <Compile Include="Chromosomes\Chromosome.cs" />
@@ -59,9 +60,13 @@
     <Compile Include="Paring\IPare.cs" />
     <Compile Include="Paring\Pare.cs" />
     <Compile Include="Paring\RandomParingAlgotrithm.cs" />
+    <Compile Include="Selection\PostGeneration\IPostGenerationSelectionAlgorithm.cs" />
+    <Compile Include="Selection\PostGeneration\PostGenerationSelectAllAlgorithm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Selection\ISelectionAlgorithm.cs" />
     <Compile Include="Selection\BestNSelectionAlgorithm.cs" />
+    <Compile Include="Selection\PostGeneration\PostGenerationSelectBestFromAll.cs" />
+    <Compile Include="Selection\PostGeneration\PostGenerationSelectBestFromChildren.cs" />
     <Compile Include="Selection\RandomSelectionAlgorithm.cs" />
   </ItemGroup>
   <ItemGroup />

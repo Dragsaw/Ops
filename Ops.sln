@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ga", "Ga\Ga.csproj", "{1860
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ga.Tests", "Ga.Tests\Ga.Tests.csproj", "{761BFE63-C546-4201-B465-3F688A60BFEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ga.Forms", "Ga.Forms\Ga.Forms.csproj", "{C0C891B9-2EA5-450C-B8F0-3F8E305DA2B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gapp", "Gapp\Gapp.csproj", "{5C08E12F-571A-434B-B556-43BBA5637B24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{761BFE63-C546-4201-B465-3F688A60BFEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{761BFE63-C546-4201-B465-3F688A60BFEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{761BFE63-C546-4201-B465-3F688A60BFEF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C0C891B9-2EA5-450C-B8F0-3F8E305DA2B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0C891B9-2EA5-450C-B8F0-3F8E305DA2B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C0C891B9-2EA5-450C-B8F0-3F8E305DA2B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C0C891B9-2EA5-450C-B8F0-3F8E305DA2B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C08E12F-571A-434B-B556-43BBA5637B24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C08E12F-571A-434B-B556-43BBA5637B24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C08E12F-571A-434B-B556-43BBA5637B24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C08E12F-571A-434B-B556-43BBA5637B24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

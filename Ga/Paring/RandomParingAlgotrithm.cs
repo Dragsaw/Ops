@@ -5,29 +5,17 @@ using System.Linq;
 
 namespace Ga.Paring
 {
-    public class RandomParingAlgotrithm : IParingAlgorithm
+    public class RandomParingAlgorithm : IParingAlgorithm
     {
-        int paresCount;
-        Random random;
+        private Random random;
 
-        public RandomParingAlgotrithm(int paresCount)
+        public IPare Pare(IEnumerable<IIndividual> individuals)
         {
-            this.paresCount = paresCount;
-            random = new Random(DateTime.Now.Millisecond);
-        }
-
-        public IEnumerable<IPare> Pare(IEnumerable<IIndividual> individuals)
-        {
-            var result = new List<IPare>();
-
-            for (int i = 0; i < paresCount; i++)
+            return new Pare
             {
-                var first = random.Next(individuals.Count());
-                var second = random.Next(individuals.Count());
-                result.Add(new Pare { First = individuals.ElementAt(first), Second = individuals.ElementAt(second) });
-            }
-
-            return result;
+                First = individuals.ElementAt(random.Next(individuals.Count())),
+                Second = individuals.ElementAt(random.Next(individuals.Count()))
+            };
         }
     }
 }

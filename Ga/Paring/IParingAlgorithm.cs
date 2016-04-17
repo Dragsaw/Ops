@@ -9,6 +9,6 @@ namespace Ga.Paring
 {
     public interface IParingAlgorithm
     {
-        IEnumerable<IPare> Pare(IEnumerable<IIndividual> individuals);
+        IPare Pare(IEnumerable<IIndividual> individuals);
     }
 }

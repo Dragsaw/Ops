@@ -5,6 +5,7 @@ using Ga.Initialization;
 using Ga.Mutation;
 using Ga.Paring;
 using Ga.Selection;
+using Ga.Selection.PostGeneration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace Ga
         private IParingAlgorithm paring;
         private ICrossoverAlgorithm crossover;
         private IMutationAlgorithm mutation;
+        private IPostGenerationSelectionAlgorithm postGenerationSelection;
         private Action<IIndividual> healthAction;
         private List<IIndividual> population;
         private int populationSize;
@@ -27,25 +29,34 @@ namespace Ga
         public event EventHandler<IndividualsEventArgs> NewIndividualsAdded;
 
         public IEnumerable<IIndividual> Population { get { return population; } }
+        public IList<IEnumerable<IIndividual>> History { get; private set; }
 
         public ParallelGeneticAlgorithm(IInitializationAlgorithm initialization, ISelectionAlgorithm selection, IParingAlgorithm paring,
-            ICrossoverAlgorithm crossover, IMutationAlgorithm mutation, Action<IIndividual> healthAction, int populationSize)
+            ICrossoverAlgorithm crossover, IMutationAlgorithm mutation, IPostGenerationSelectionAlgorithm postGenerationSelection, Action<IIndividual> healthAction, int populationSize)
         {
             this.initialization = initialization;
             this.selection = selection;
             this.paring = paring;
             this.crossover = crossover;
             this.mutation = mutation;
+            this.postGenerationSelection = postGenerationSelection;
             this.healthAction = healthAction;
             this.populationSize = populationSize;
 
-            population = new List<IIndividual>();
-            population.AddRange(initialization.Initialize());
-            population.AsParallel().ForAll(this.healthAction);
+            this.NewIndividualsAdded += SaveNewIndividuals;
+            this.History = new List<IEnumerable<IIndividual>>();
         }
 
         public void Run()
         {
+            if (this.History.Count == 0)
+            {
+                population = initialization.Initialize().ToList();
+                population.AsParallel().ForAll(this.healthAction);
+                NewIndividualsAdded(this, new IndividualsEventArgs { NewIndividuals = this.Population });
+                return;
+            }
+
             population = population
                 .Where(x => x.IsHealthy)
                 .OrderByDescending(x => x.Health)
@@ -53,8 +64,8 @@ namespace Ga
                 .Take(populationSize)
                 .ToList();
             currentGeneration++;
-            var tasks = new Task<IEnumerable<IIndividual>>[populationSize / 2];
-            for (int i = 0; i < populationSize / 2; i++)
+            var tasks = new Task<IEnumerable<IIndividual>>[population.Count / 2];
+            for (int i = 0; i < population.Count / 2; i++)
             {
                 tasks[i] = new Task<IEnumerable<IIndividual>>(RunProcess);
                 tasks[i].Start();
@@ -76,28 +87,27 @@ namespace Ga
 
         private IEnumerable<IIndividual> RunProcess()
         {
-            var selected = selection.Select(population).ToList();
-            selected.AddRange(selection.Select(population));
-            var bestOfSelected = selected.OrderByDescending(x => x.Health).ThenBy(x => x.Id).Take(2);
+            var firstSelection = selection
+                .Select(population)
+                .ToList();
+            var secondSelection = selection
+                .Select(population)
+                .ToList();
+            var selected = firstSelection.Concat(secondSelection);
+            // todo: мутация на родителях или потомках
+            var parents = paring.Pare(selected);
+            var children = crossover.Crossover(parents, currentGeneration).ToList();
+            var mutants = children
+                .Select(x => mutation.Mutate(x))
+                .Where(mutant => mutant != null);
+            children.AddRange(mutants);
+            children.ForEach(healthAction);
+            return postGenerationSelection.Select(children);
+        }
 
-            var pare = new Pare { First = bestOfSelected.First(), Second = bestOfSelected.Last() };
-            var children = crossover.Crossover(pare, currentGeneration);
-            var mutants = children.Select(x => mutation.Mutate(x));
-
-            foreach (var child in children)
-            {
-                healthAction(child);
-            }
-
-            selected.Clear();
-            selected.AddRange(children);
-            foreach (var mutant in mutants.Where(x => x != null))
-            {
-                healthAction(mutant);
-                selected.Add(mutant);
-            }
-
-            return selected;
+        private void SaveNewIndividuals(object sender, IndividualsEventArgs e)
+        {
+            this.History.Add(e.NewIndividuals);
         }
     }
 }

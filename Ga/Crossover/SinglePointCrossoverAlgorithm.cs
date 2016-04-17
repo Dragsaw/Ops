@@ -9,9 +9,9 @@ namespace Ga.Crossover
     {
         private int index;
 
-        public SinglePointCrossoverAlgorithm(int index)
+        public SinglePointCrossoverAlgorithm(params int[] points)
         {
-            this.index = index;
+            this.index = points[0];
         }
 
         public IEnumerable<IIndividual> Crossover(IPare pare, int generation)
