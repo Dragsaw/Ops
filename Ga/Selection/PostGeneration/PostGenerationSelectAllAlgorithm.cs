@@ -9,9 +9,9 @@ namespace Ga.Selection.PostGeneration
 {
     public class PostGenerationSelectAllAlgorithm : IPostGenerationSelectionAlgorithm
     {
-        public IEnumerable<IIndividual> Select(IEnumerable<IIndividual> children)
+        public IEnumerable<IIndividual> Select(IEnumerable<IIndividual> children, int? count)
         {
-            return children
+            var result =  children
                 .Aggregate(new List<IIndividual>(), (list, child) =>
                 {
                     if (child.IsHealthy)
@@ -27,6 +27,7 @@ namespace Ga.Selection.PostGeneration
 
                     return list;
                 });
+            return result.Take(count ?? result.Count);
         }
     }
 }

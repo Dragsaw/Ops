@@ -7,7 +7,7 @@ namespace Ga.Paring
 {
     public class RandomParingAlgorithm : IParingAlgorithm
     {
-        private Random random;
+        private Random random = new Random(DateTime.Now.Millisecond);
 
         public IPare Pare(IEnumerable<IIndividual> individuals)
         {

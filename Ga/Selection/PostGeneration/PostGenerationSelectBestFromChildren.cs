@@ -9,20 +9,13 @@ namespace Ga.Selection.PostGeneration
 {
     public class PostGenerationSelectBestFromChildren : IPostGenerationSelectionAlgorithm
     {
-        private readonly int count;
-
-        public PostGenerationSelectBestFromChildren(int count)
-        {
-            this.count = count;
-        }
-
-        public IEnumerable<IIndividual> Select(IEnumerable<IIndividual> children)
+        public IEnumerable<IIndividual> Select(IEnumerable<IIndividual> children, int? count)
         {
             return children
                 .Where(child => child.IsHealthy)
                 .OrderByDescending(child => child.Health)
                 .ThenBy(child => child.Id)
-                .Take(count);
+                .Take(count ?? children.Count());
         }
     }
 }

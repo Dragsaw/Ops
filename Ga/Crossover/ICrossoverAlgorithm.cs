@@ -10,6 +10,6 @@ namespace Ga.Crossover
 {
     public interface ICrossoverAlgorithm
     {
-        IEnumerable<IIndividual> Crossover(IPare pare, int generation);
+        IEnumerable<IIndividual> Crossover(IPare pare, IEnumerable<int> points, int generation);
     }
 }

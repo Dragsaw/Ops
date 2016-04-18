@@ -9,6 +9,6 @@ namespace Ga.Mutation
 {
     public interface IMutationAlgorithm
     {
-        IIndividual Mutate(IIndividual individual);
+        IIndividual Mutate(IIndividual individual, double mutationChance);
     }
 }

@@ -9,16 +9,9 @@ namespace Ga.Selection.PostGeneration
 {
     public class PostGenerationSelectBestFromAll : IPostGenerationSelectionAlgorithm
     {
-        private readonly int count;
-
-        public PostGenerationSelectBestFromAll(int count)
+        public IEnumerable<IIndividual> Select(IEnumerable<IIndividual> children, int? count)
         {
-            this.count = count;
-        }
-
-        public IEnumerable<IIndividual> Select(IEnumerable<IIndividual> children)
-        {
-            return children
+            var result = children
                 .Aggregate(new List<IIndividual>(), (list, child) =>
                 {
                     if (child.IsHealthy)
@@ -33,10 +26,11 @@ namespace Ga.Selection.PostGeneration
                     }
 
                     return list;
-                })
+                }); ;
+            return result
                 .OrderByDescending(ind => ind.Health)
                 .ThenBy(ind => ind.Id)
-                .Take(count);
+                .Take(count ?? result.Count);
         }
     }
 }

@@ -10,25 +10,16 @@ namespace Ga.Initialization
 {
     public class RandomInitializationAlgorithm : IInitializationAlgorithm
     {
-        private int individualsCount;
-        private Random random;
-        private IChromosome[] chromosomes;
+        private Random random = new Random(DateTime.Now.Millisecond);
 
-        public RandomInitializationAlgorithm(int individualsCount, params IChromosome[] chromosomes)
-        {
-            this.random = new Random(DateTime.Now.Millisecond);
-            this.individualsCount = individualsCount;
-            this.chromosomes = chromosomes;
-        }
-
-        public IEnumerable<IIndividual> Initialize()
+        public IEnumerable<IIndividual> Initialize(int individualsCount, params IChromosome[] chromosomes)
         {
             var result = new IIndividual[individualsCount];
-            Parallel.For(0, individualsCount, i => result[i] = GenerateIndividual());
+            Parallel.For(0, individualsCount, i => result[i] = GenerateIndividual(chromosomes));
             return result;
         }
 
-        private IIndividual GenerateIndividual()
+        private IIndividual GenerateIndividual(IEnumerable<IChromosome> chromosomes)
         {
             var individual = new Individual { Generation = 1 };
             foreach (var c in chromosomes)

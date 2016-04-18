@@ -11,16 +11,9 @@ namespace Ga.Mutation
 {
     public class ClassicMutation : IMutationAlgorithm
     {
-        private double mutationChance;
-        private Random random;
+        private Random random = new Random(DateTime.Now.Millisecond);
 
-        public ClassicMutation(double mutationChance)
-        {
-            this.mutationChance = mutationChance;
-            this.random = new Random();
-        }
-
-        public IIndividual Mutate(IIndividual individual)
+        public IIndividual Mutate(IIndividual individual, double mutationChance)
         {
             bool mutationHappened = false;
             var binary = individual.Bits;

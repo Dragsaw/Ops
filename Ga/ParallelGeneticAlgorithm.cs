@@ -1,4 +1,5 @@
-﻿using Ga.Crossover;
+﻿using Ga.Chromosomes;
+using Ga.Crossover;
 using Ga.Individuals;
 using Ga.Infrastructure;
 using Ga.Initialization;
@@ -25,14 +26,29 @@ namespace Ga
         private Action<IIndividual> healthAction;
         private List<IIndividual> population;
         private int populationSize;
+        private IChromosome[] genome;
+        private IEnumerable<int> crossoverPoints;
+        private double mutationChance;
+        private int? returnIndividualsCount;
 
         public event EventHandler<IndividualsEventArgs> NewIndividualsAdded;
 
         public IEnumerable<IIndividual> Population { get { return population; } }
         public IList<IEnumerable<IIndividual>> History { get; private set; }
 
-        public ParallelGeneticAlgorithm(IInitializationAlgorithm initialization, ISelectionAlgorithm selection, IParingAlgorithm paring,
-            ICrossoverAlgorithm crossover, IMutationAlgorithm mutation, IPostGenerationSelectionAlgorithm postGenerationSelection, Action<IIndividual> healthAction, int populationSize)
+        public ParallelGeneticAlgorithm(
+            IInitializationAlgorithm initialization, 
+            ISelectionAlgorithm selection, 
+            IParingAlgorithm paring,
+            ICrossoverAlgorithm crossover, 
+            IMutationAlgorithm mutation, 
+            IPostGenerationSelectionAlgorithm postGenerationSelection, 
+            Action<IIndividual> healthAction, 
+            int populationSize,
+            IEnumerable<int> crossoverPoints,
+            double mutationChance,
+            int? returnIndividualsCount,
+            params IChromosome[] chromosomes)
         {
             this.initialization = initialization;
             this.selection = selection;
@@ -42,6 +58,10 @@ namespace Ga
             this.postGenerationSelection = postGenerationSelection;
             this.healthAction = healthAction;
             this.populationSize = populationSize;
+            this.genome = chromosomes;
+            this.crossoverPoints = crossoverPoints;
+            this.mutationChance = mutationChance;
+            this.returnIndividualsCount = returnIndividualsCount;
 
             this.NewIndividualsAdded += SaveNewIndividuals;
             this.History = new List<IEnumerable<IIndividual>>();
@@ -51,7 +71,7 @@ namespace Ga
         {
             if (this.History.Count == 0)
             {
-                population = initialization.Initialize().ToList();
+                population = initialization.Initialize(populationSize, genome).ToList();
                 population.AsParallel().ForAll(this.healthAction);
                 NewIndividualsAdded(this, new IndividualsEventArgs { NewIndividuals = this.Population });
                 return;
@@ -88,21 +108,21 @@ namespace Ga
         private IEnumerable<IIndividual> RunProcess()
         {
             var firstSelection = selection
-                .Select(population)
+                .Select(population, populationSize)
                 .ToList();
             var secondSelection = selection
-                .Select(population)
+                .Select(population, populationSize)
                 .ToList();
             var selected = firstSelection.Concat(secondSelection);
             // todo: мутация на родителях или потомках
             var parents = paring.Pare(selected);
-            var children = crossover.Crossover(parents, currentGeneration).ToList();
+            var children = crossover.Crossover(parents, crossoverPoints, currentGeneration).ToList();
             var mutants = children
-                .Select(x => mutation.Mutate(x))
+                .Select(x => mutation.Mutate(x, mutationChance))
                 .Where(mutant => mutant != null);
             children.AddRange(mutants);
             children.ForEach(healthAction);
-            return postGenerationSelection.Select(children);
+            return postGenerationSelection.Select(children, returnIndividualsCount);
         }
 
         private void SaveNewIndividuals(object sender, IndividualsEventArgs e)

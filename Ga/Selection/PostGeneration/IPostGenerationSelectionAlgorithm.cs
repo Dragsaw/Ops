@@ -5,6 +5,6 @@ namespace Ga.Selection.PostGeneration
 {
     public interface IPostGenerationSelectionAlgorithm
     {
-        IEnumerable<IIndividual> Select(IEnumerable<IIndividual> children);
+        IEnumerable<IIndividual> Select(IEnumerable<IIndividual> children, int? count);
     }
 }

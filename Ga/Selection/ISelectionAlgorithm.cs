@@ -9,6 +9,6 @@ namespace Ga.Selection
 {
     public interface ISelectionAlgorithm
     {
-        IEnumerable<IIndividual> Select(IEnumerable<IIndividual> individuals);
+        IEnumerable<IIndividual> Select(IEnumerable<IIndividual> individuals, int take);
     }
 }

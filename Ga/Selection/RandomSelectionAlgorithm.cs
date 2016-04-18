@@ -7,19 +7,12 @@ namespace Ga.Selection
 {
     public class RandomSelectionAlgorithm : ISelectionAlgorithm
     {
-        private int count;
-        private Random random;
+        private Random random = new Random(DateTime.Now.Millisecond);
 
-        public RandomSelectionAlgorithm(int numberOfIndividuals)
-        {
-            this.count = numberOfIndividuals;
-            this.random = new Random(DateTime.Now.Millisecond);
-        }
-
-        public IEnumerable<IIndividual> Select(IEnumerable<IIndividual> individuals)
+        public IEnumerable<IIndividual> Select(IEnumerable<IIndividual> individuals, int take)
         {
             var result = new IIndividual[2];
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < take; i++)
             {
                 result[i] = individuals.ElementAt(random.Next(individuals.Count() - 1));
             }
