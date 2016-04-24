@@ -1,4 +1,6 @@
-﻿using Gapp.Infrastructure;
+﻿using Ga.Chromosomes;
+using Ga.Individuals;
+using Gapp.Infrastructure;
 using Gapp.Management;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,7 @@ namespace Gapp
     public partial class MainForm : Form
     {
         AlgorithmsGridView grid = new AlgorithmsGridView();
+        AlgorithmFactory algorithmFactory = new AlgorithmFactory();
 
         public MainForm()
         {
@@ -32,13 +35,46 @@ namespace Gapp
             grid.Algorithms.Add(new AlgorithmInfo
             {
                 Crossover = (CrossoverAlgorithms)listCrossover.SelectedValue,
-                CrossoverPoints = new[] { (int)numFirstPoint.Value, (int)numSecondPoint.Value },
                 Initialization = (InitializationAlgorithms)listInitialization.SelectedValue,
                 MutationChance = (double)numMutationChance.Value,
                 PopulationSize = (int)numN.Value,
                 PostGenerationSelection = (PostGenerationSelectionAlgorithms)listPostGenerationSelection.SelectedValue,
                 Selection = (SelectionAlgorithms)listSelection.SelectedValue
             });
+        }
+
+        private void buttonRunAll_Click(object sender, EventArgs e)
+        {
+            var algorithmInfos = new List<AlgorithmInfo>();
+            foreach (DataGridViewRow row in grid.Rows)
+            {
+                algorithmInfos.Add(row.DataBoundItem as AlgorithmInfo);
+            }
+
+
+            var chromosomes = new[]
+            {
+                new Chromosome { LowerLimit = (int)numMinX.Value, UpperLimit = (int)numMaxX.Value, Name = "X", Scale = (int)numScaleX.Value },
+                new Chromosome { LowerLimit = (int)numMinY.Value, UpperLimit = (int)numMaxY.Value, Name = "Y", Scale = (int)numScaleY.Value }
+            };
+            var algorithms = algorithmInfos
+                .Select(x => algorithmFactory.Create(x, this.HealthAction, chromosomes))
+                .ToArray();
+            algorithms
+                .AsParallel()
+                .ForAll(x => x.Solve(a => a.Population.Max(i => i.Generation) < 20));
+            for (int i = 0; i < algorithms.Length; i++)
+            {
+                var info = grid.Rows[i].DataBoundItem as AlgorithmInfo;
+                var best = algorithms[i].Population.OrderByDescending(x => x.Health).ThenBy(x => x.Id).First(x => x.IsHealthy);
+                info.Rating = best.Health / best.Generation;
+            }
+            grid.Refresh();
+        }
+
+        private void HealthAction(IIndividual individual)
+        {
+            individual.Health = individual.Genome.First().Value + individual.Genome.Last().Value;
         }
     }
 }

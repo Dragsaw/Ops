@@ -35,11 +35,12 @@ namespace Ga.Tests
             var ca = new SinglePointCrossoverAlgorithm();
             var pare = new Pare
             {
-                First = new Individual { Genome = new List<IChromosome> { new Chromosome { Value = -2, LowerLimit = 0, UpperLimit = 3 } } },
-                Second = new Individual { Genome = new List<IChromosome> { new Chromosome { Value = 3, LowerLimit = 0, UpperLimit = 3 } } }
+                First = new Individual { Genome = new List<IChromosome> { new Chromosome { Value = -3, LowerLimit = 0, UpperLimit = 3 } } },
+                Second = new Individual { Genome = new List<IChromosome> { new Chromosome { Value = 2, LowerLimit = 0, UpperLimit = 3 } } }
             };
-            var result = ca.Crossover(pare, new[] { 2 }, 2);
-            Assert.AreEqual("111", result.ElementAt(0).Bits.ToString());
+            var result = ca.Crossover(pare, 2);
+            Assert.AreEqual(3, pare.First.BinaryLength);
+            Assert.AreEqual("110", result.ElementAt(0).Bits.ToString());
         }
     }
 }

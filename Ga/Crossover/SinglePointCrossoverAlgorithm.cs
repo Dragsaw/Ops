@@ -8,9 +8,9 @@ namespace Ga.Crossover
 {
     public class SinglePointCrossoverAlgorithm : ICrossoverAlgorithm
     {
-        public IEnumerable<IIndividual> Crossover(IPare pare, IEnumerable<int> points, int generation)
+        public IEnumerable<IIndividual> Crossover(IPare pare, int generation)
         {
-            int point = points.First();
+            int point = pare.First.BinaryLength / 2;
             var newIndividual1 = pare.First.Clone();
             var newIndividual2 = pare.First.Clone();
             var str1 = pare.First.Bits.ToString();

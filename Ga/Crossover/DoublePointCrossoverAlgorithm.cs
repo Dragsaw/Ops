@@ -11,10 +11,10 @@ namespace Ga.Crossover
 {
     public class DoublePointCrossoverAlgorithm : ICrossoverAlgorithm
     {
-        public IEnumerable<IIndividual> Crossover(IPare pare, IEnumerable<int> points, int generation)
+        public IEnumerable<IIndividual> Crossover(IPare pare, int generation)
         {
-            int point1 = points.ElementAt(0);
-            int point2 = points.ElementAt(1);
+            int point1 = pare.First.BinaryLength / 3;
+            int point2 = pare.First.BinaryLength * 2 / 3;
             var child1 = pare.First.Clone();
             var child2 = pare.First.Clone();
             var str1 = pare.First.Bits.ToString();

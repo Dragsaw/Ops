@@ -54,13 +54,6 @@ namespace Gapp
             crossoverCol.FillWeight = 0.14f;
             this.Columns.Add(crossoverCol);
 
-            var crossocerPointsCol = new DataGridViewTextBoxColumn();
-            crossocerPointsCol.DataPropertyName = "CrossoverPointsName";
-            crossocerPointsCol.Name = "Crossover Points";
-            crossocerPointsCol.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            crossocerPointsCol.FillWeight = 0.14f;
-            this.Columns.Add(crossocerPointsCol);
-
             var mutationCol = new DataGridViewTextBoxColumn();
             mutationCol.DataPropertyName = "MutationChance";
             mutationCol.Name = "Mutation Chance";

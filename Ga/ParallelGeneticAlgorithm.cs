@@ -27,7 +27,6 @@ namespace Ga
         private List<IIndividual> population;
         private int populationSize;
         private IChromosome[] genome;
-        private IEnumerable<int> crossoverPoints;
         private double mutationChance;
         private int? returnIndividualsCount;
 
@@ -37,15 +36,14 @@ namespace Ga
         public IList<IEnumerable<IIndividual>> History { get; private set; }
 
         public ParallelGeneticAlgorithm(
-            IInitializationAlgorithm initialization, 
-            ISelectionAlgorithm selection, 
+            IInitializationAlgorithm initialization,
+            ISelectionAlgorithm selection,
             IParingAlgorithm paring,
-            ICrossoverAlgorithm crossover, 
-            IMutationAlgorithm mutation, 
-            IPostGenerationSelectionAlgorithm postGenerationSelection, 
-            Action<IIndividual> healthAction, 
+            ICrossoverAlgorithm crossover,
+            IMutationAlgorithm mutation,
+            IPostGenerationSelectionAlgorithm postGenerationSelection,
+            Action<IIndividual> healthAction,
             int populationSize,
-            IEnumerable<int> crossoverPoints,
             double mutationChance,
             int? returnIndividualsCount,
             params IChromosome[] chromosomes)
@@ -59,7 +57,6 @@ namespace Ga
             this.healthAction = healthAction;
             this.populationSize = populationSize;
             this.genome = chromosomes;
-            this.crossoverPoints = crossoverPoints;
             this.mutationChance = mutationChance;
             this.returnIndividualsCount = returnIndividualsCount;
 
@@ -99,10 +96,11 @@ namespace Ga
 
         public void Solve(Func<ParallelGeneticAlgorithm, bool> condition)
         {
-            while (condition(this))
+            do
             {
                 Run();
             }
+            while (condition(this));
         }
 
         private IEnumerable<IIndividual> RunProcess()
@@ -116,10 +114,11 @@ namespace Ga
             var selected = firstSelection.Concat(secondSelection);
             // todo: мутация на родителях или потомках
             var parents = paring.Pare(selected);
-            var children = crossover.Crossover(parents, crossoverPoints, currentGeneration).ToList();
+            var children = crossover.Crossover(parents, currentGeneration).ToList();
             var mutants = children
                 .Select(x => mutation.Mutate(x, mutationChance))
-                .Where(mutant => mutant != null);
+                .Where(mutant => mutant != null)
+                .ToArray();
             children.AddRange(mutants);
             children.ForEach(healthAction);
             return postGenerationSelection.Select(children, returnIndividualsCount);

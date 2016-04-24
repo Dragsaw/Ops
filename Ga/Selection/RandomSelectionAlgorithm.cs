@@ -11,7 +11,7 @@ namespace Ga.Selection
 
         public IEnumerable<IIndividual> Select(IEnumerable<IIndividual> individuals, int take)
         {
-            var result = new IIndividual[2];
+            var result = new IIndividual[take];
             for (int i = 0; i < take; i++)
             {
                 result[i] = individuals.ElementAt(random.Next(individuals.Count() - 1));

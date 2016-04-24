@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Gapp.Management
 {
-    public class AlgorithmsFactory
+    public class AlgorithmFactory
     {
         public ParallelGeneticAlgorithm Create(AlgorithmInfo info, Action<IIndividual> healthAction, params IChromosome[] chromosomes)
         {
@@ -34,7 +34,6 @@ namespace Gapp.Management
                 postGenerationSelection,
                 healthAction,
                 info.PopulationSize,
-                info.CrossoverPoints,
                 info.MutationChance,
                 // todo: replace with actual number
                 null,

@@ -19,7 +19,6 @@ namespace Gapp.Management
         public SelectionAlgorithms Selection { get; set; }
         public InitializationAlgorithms Initialization { get; set; }
         public CrossoverAlgorithms Crossover { get; set; }
-        public int[] CrossoverPoints { get; set; }
         public double MutationChance { get; set; }
         public PostGenerationSelectionAlgorithms PostGenerationSelection { get; set; }
         public double? Rating { get; set; }
@@ -28,7 +27,6 @@ namespace Gapp.Management
         public string SelectionName { get { return this.Selection.ToString(); } }
         public string InitializationName { get { return this.Initialization.ToString(); } }
         public string CrossoverName { get { return this.Crossover.ToString(); } }
-        public string CrossoverPointsName { get { return string.Join(",", this.CrossoverPoints); } }
         public string PostGenerationSelectionName { get { return this.PostGenerationSelection.ToString(); } }
     }
 }

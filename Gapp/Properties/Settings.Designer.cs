@@ -22,5 +22,41 @@ namespace Gapp.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public decimal DefaultN {
+            get {
+                return ((decimal)(this["DefaultN"]));
+            }
+            set {
+                this["DefaultN"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.2")]
+        public decimal DefaultU {
+            get {
+                return ((decimal)(this["DefaultU"]));
+            }
+            set {
+                this["DefaultU"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public decimal DefaultUpperValue {
+            get {
+                return ((decimal)(this["DefaultUpperValue"]));
+            }
+            set {
+                this["DefaultUpperValue"] = value;
+            }
+        }
     }
 }
