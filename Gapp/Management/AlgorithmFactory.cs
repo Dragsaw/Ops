@@ -14,15 +14,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Ga.Infrastructure;
+
 namespace Gapp.Management
 {
     public class AlgorithmFactory
     {
         public ParallelGeneticAlgorithm Create(AlgorithmInfo info, Action<IIndividual> healthAction, params IChromosome[] chromosomes)
         {
-            var initialization = Activator.CreateInstance(info.Initialization.GetAlgorithmType()) as IInitializationAlgorithm;
+            var individualsFactory = new IndividualsFactory();
+            var initialization = Activator.CreateInstance(info.Initialization.GetAlgorithmType(), individualsFactory) as IInitializationAlgorithm;
             var selection = Activator.CreateInstance(info.Selection.GetAlgorithmType()) as ISelectionAlgorithm;
-            var crossover = Activator.CreateInstance(info.Crossover.GetAlgorithmType()) as ICrossoverAlgorithm;
+            var crossover = Activator.CreateInstance(info.Crossover.GetAlgorithmType(), individualsFactory) as ICrossoverAlgorithm;
             var postGenerationSelection = Activator.CreateInstance(info.PostGenerationSelection.GetAlgorithmType()) as IPostGenerationSelectionAlgorithm;
 
             return new ParallelGeneticAlgorithm(
@@ -30,7 +33,7 @@ namespace Gapp.Management
                 selection,
                 new RandomParingAlgorithm(),
                 crossover,
-                new ClassicMutation(),
+                new ClassicMutation(individualsFactory),
                 postGenerationSelection,
                 healthAction,
                 info.PopulationSize,

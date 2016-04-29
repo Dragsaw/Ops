@@ -11,12 +11,19 @@ namespace Ga.Crossover
 {
     public class DoublePointCrossoverAlgorithm : ICrossoverAlgorithm
     {
+        private readonly IndividualsFactory individualsFactory;
+
+        public DoublePointCrossoverAlgorithm(IndividualsFactory individualsFactory)
+        {
+            this.individualsFactory = individualsFactory;
+        }
+
         public IEnumerable<IIndividual> Crossover(IPare pare, int generation)
         {
             int point1 = pare.First.BinaryLength / 3;
             int point2 = pare.First.BinaryLength * 2 / 3;
-            var child1 = pare.First.Clone();
-            var child2 = pare.First.Clone();
+            var child1 = individualsFactory.Create(pare.First);
+            var child2 = individualsFactory.Create(pare.First);
             var str1 = pare.First.Bits.ToString();
             var str2 = pare.Second.Bits.ToString();
             var child1String = str1.Substring(0, point1) +
@@ -31,7 +38,7 @@ namespace Ga.Crossover
             child2.Update(new Binary(child2String));
             child2.Generation = generation;
             child2.Parents = new Pare { First = pare.Second, Second = pare.First };
-            return new IIndividual[] { child1, child2 };
+            return new [] { child1, child2 };
         }
     }
 }

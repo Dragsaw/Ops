@@ -12,6 +12,12 @@ namespace Ga.Mutation
     public class ClassicMutation : IMutationAlgorithm
     {
         private Random random = new Random(DateTime.Now.Millisecond);
+        private readonly IndividualsFactory individualsFactory;
+
+        public ClassicMutation(IndividualsFactory individualsFactory)
+        {
+            this.individualsFactory = individualsFactory;
+        }
 
         public IIndividual Mutate(IIndividual individual, double mutationChance)
         {
@@ -32,7 +38,7 @@ namespace Ga.Mutation
                 return null;
             }
 
-            var newIndividual = individual.Clone();
+            var newIndividual = individualsFactory.Create(individual);
             newIndividual.Update(binary);
             newIndividual.Id = individual.Id;
             newIndividual.IsMutant = true;

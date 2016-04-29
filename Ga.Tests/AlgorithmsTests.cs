@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Ga.Infrastructure;
+
 namespace Ga.Tests
 {
     [TestClass]
@@ -32,7 +34,8 @@ namespace Ga.Tests
         [TestMethod]
         public void Can_Crossover_At_One_Point()
         {
-            var ca = new SinglePointCrossoverAlgorithm();
+            var individualsFactory = new IndividualsFactory();
+            var ca = new SinglePointCrossoverAlgorithm(individualsFactory);
             var pare = new Pare
             {
                 First = new Individual { Genome = new List<IChromosome> { new Chromosome { Value = -3, LowerLimit = 0, UpperLimit = 3 } } },

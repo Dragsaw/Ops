@@ -11,13 +11,9 @@ namespace Ga.Individuals
 {
     public class Individual : IIndividual
     {
-        private static int count;
-
         public Individual()
         {
             Genome = new List<IChromosome>();
-            count++;
-            Id = count;
         }
 
         public Binary Bits
