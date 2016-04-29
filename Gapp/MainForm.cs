@@ -58,7 +58,11 @@ namespace Gapp
                 new Chromosome { LowerLimit = (int)numMinY.Value, UpperLimit = (int)numMaxY.Value, Name = "Y", Scale = (int)numScaleY.Value }
             };
             var algorithms = algorithmInfos
-                .Select(x => algorithmFactory.Create(x, this.HealthAction, chromosomes))
+                .Select(x =>
+                {
+                    x.Algorithm = algorithmFactory.Create(x, this.HealthAction, chromosomes);
+                    return x.Algorithm;
+                })
                 .ToArray();
             algorithms
                 .AsParallel()
@@ -67,7 +71,7 @@ namespace Gapp
             {
                 var info = grid.Rows[i].DataBoundItem as AlgorithmInfo;
                 var best = algorithms[i].Population.OrderByDescending(x => x.Health).ThenBy(x => x.Id).First(x => x.IsHealthy);
-                info.Rating = best.Health / best.Generation;
+                info.Rating = best.Health * 10 / (best.Generation * 0.5 + best.Id * 0.1);
             }
             grid.Refresh();
         }
@@ -75,6 +79,13 @@ namespace Gapp
         private void HealthAction(IIndividual individual)
         {
             individual.Health = individual.Genome.First().Value + individual.Genome.Last().Value;
+        }
+
+        private void buttonInfo_Click(object sender, EventArgs e)
+        {
+            var algorithmInfo = grid.SelectedRows[0].DataBoundItem as AlgorithmInfo;
+            var infoForm = new AlgorithmDetailsForm(algorithmInfo.Algorithm);
+            infoForm.Show(this);
         }
     }
 }

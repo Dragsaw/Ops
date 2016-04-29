@@ -16,7 +16,7 @@ namespace Gapp
         public AlgorithmsGridView()
         {
             this.Algorithms = new BindingList<AlgorithmInfo>();
-            this.MinimumSize = new Size(785, 172);
+            this.Size = new Size(785, 105);
             this.Location = new Point(0, 190);
             this.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             this.AllowUserToAddRows = false;

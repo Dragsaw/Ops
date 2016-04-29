@@ -238,6 +238,7 @@
             this.buttonInfo.TabIndex = 17;
             this.buttonInfo.Text = "Info";
             this.buttonInfo.UseVisualStyleBackColor = true;
+            this.buttonInfo.Click += new System.EventHandler(this.buttonInfo_Click);
             // 
             // groupFunction
             // 
