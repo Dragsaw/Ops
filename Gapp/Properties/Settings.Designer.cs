@@ -58,5 +58,17 @@ namespace Gapp.Properties {
                 this["DefaultUpperValue"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("x1+x2")]
+        public string DefaultFunction {
+            get {
+                return ((string)(this["DefaultFunction"]));
+            }
+            set {
+                this["DefaultFunction"] = value;
+            }
+        }
     }
 }

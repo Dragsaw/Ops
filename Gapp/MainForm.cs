@@ -2,6 +2,7 @@
 using Ga.Individuals;
 using Gapp.Infrastructure;
 using Gapp.Management;
+using Jace;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,8 @@ namespace Gapp
     {
         AlgorithmsGridView grid = new AlgorithmsGridView();
         AlgorithmFactory algorithmFactory = new AlgorithmFactory();
+        CalculationEngine engine = new CalculationEngine();
+        Func<double, double, double> function;
 
         public MainForm()
         {
@@ -45,6 +48,12 @@ namespace Gapp
 
         private void buttonRunAll_Click(object sender, EventArgs e)
         {
+            function = (Func<double, double, double>)engine.Formula(textBoxFunction.Text)
+                .Parameter("x1", DataType.FloatingPoint)
+                .Parameter("x2", DataType.FloatingPoint)
+                .Result(DataType.FloatingPoint)
+                .Build();
+
             var algorithmInfos = new List<AlgorithmInfo>();
             foreach (DataGridViewRow row in grid.Rows)
             {
@@ -78,7 +87,7 @@ namespace Gapp
 
         private void HealthAction(IIndividual individual)
         {
-            individual.Health = individual.Genome.First().Value + individual.Genome.Last().Value;
+            individual.Health = function(individual.Genome.First().Value, individual.Genome.Last().Value);
         }
 
         private void buttonInfo_Click(object sender, EventArgs e)

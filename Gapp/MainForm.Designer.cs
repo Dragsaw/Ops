@@ -344,10 +344,12 @@
             // 
             // textBoxFunction
             // 
+            this.textBoxFunction.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Gapp.Properties.Settings.Default, "DefaultFunction", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.textBoxFunction.Location = new System.Drawing.Point(6, 19);
             this.textBoxFunction.Name = "textBoxFunction";
             this.textBoxFunction.Size = new System.Drawing.Size(322, 20);
             this.textBoxFunction.TabIndex = 0;
+            this.textBoxFunction.Text = global::Gapp.Properties.Settings.Default.DefaultFunction;
             // 
             // MainForm
             // 

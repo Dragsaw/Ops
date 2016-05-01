@@ -11,5 +11,8 @@
     <Setting Name="DefaultUpperValue" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
+    <Setting Name="DefaultFunction" Type="System.String" Scope="User">
+      <Value Profile="(Default)">x1+x2</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
