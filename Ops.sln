@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ga", "Ga\Ga.csproj", "{18605075-CCEE-4784-8C7B-306091B8D647}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ga.Tests", "Ga.Tests\Ga.Tests.csproj", "{761BFE63-C546-4201-B465-3F688A60BFEF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gapp", "Gapp\Gapp.csproj", "{5C08E12F-571A-434B-B556-43BBA5637B24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ls", "Ls\Ls.csproj", "{89428FC5-5DF5-49A3-8824-36C21E2660BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{5C08E12F-571A-434B-B556-43BBA5637B24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C08E12F-571A-434B-B556-43BBA5637B24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C08E12F-571A-434B-B556-43BBA5637B24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89428FC5-5DF5-49A3-8824-36C21E2660BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89428FC5-5DF5-49A3-8824-36C21E2660BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89428FC5-5DF5-49A3-8824-36C21E2660BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89428FC5-5DF5-49A3-8824-36C21E2660BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

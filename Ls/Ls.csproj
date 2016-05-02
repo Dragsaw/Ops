@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{18605075-CCEE-4784-8C7B-306091B8D647}</ProjectGuid>
+    <ProjectGuid>{89428FC5-5DF5-49A3-8824-36C21E2660BD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ga</RootNamespace>
-    <AssemblyName>Ga</AssemblyName>
+    <RootNamespace>Ls</RootNamespace>
+    <AssemblyName>Ls</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,37 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Crossover\DecimalDoublePointCrossoverAlgorithm.cs" />
-    <Compile Include="Crossover\DecimalSinglePointCrossoverAlgorithm.cs" />
-    <Compile Include="Crossover\DoublePointCrossoverAlgorithm.cs" />
-    <Compile Include="Infrastructure\IndividualsEventArgs.cs" />
-    <Compile Include="Infrastructure\IndividualsFactory.cs" />
-    <Compile Include="Initialization\GridInitializationAlgorithm.cs" />
-    <Compile Include="ParallelGeneticAlgorithm.cs" />
-    <Compile Include="Chromosomes\Chromosome.cs" />
-    <Compile Include="Chromosomes\IChromosome.cs" />
-    <Compile Include="Crossover\ICrossoverAlgorithm.cs" />
-    <Compile Include="Crossover\SinglePointCrossoverAlgorithm.cs" />
-    <Compile Include="Individuals\IIndividual.cs" />
-    <Compile Include="Individuals\Individual.cs" />
-    <Compile Include="Infrastructure\Binary.cs" />
-    <Compile Include="Infrastructure\IBinaryEntity.cs" />
+    <Compile Include="Infrastructure\Enums.cs" />
+    <Compile Include="Infrastructure\Point.cs" />
+    <Compile Include="Infrastructure\PointsFactory.cs" />
     <Compile Include="Initialization\IInitializationAlgorithm.cs" />
     <Compile Include="Initialization\RandomInitializationAlgorithm.cs" />
-    <Compile Include="Mutation\ClassicMutation.cs" />
-    <Compile Include="Mutation\IMutationAlgorithm.cs" />
-    <Compile Include="Paring\IParingAlgorithm.cs" />
-    <Compile Include="Paring\IPare.cs" />
-    <Compile Include="Paring\Pare.cs" />
-    <Compile Include="Paring\RandomParingAlgotrithm.cs" />
-    <Compile Include="Selection\PostGeneration\IPostGenerationSelectionAlgorithm.cs" />
-    <Compile Include="Selection\PostGeneration\PostGenerationSelectAllAlgorithm.cs" />
+    <Compile Include="OptimizationAlgorithm.cs" />
+    <Compile Include="LocalSearch\GaussAlgorithm.cs" />
+    <Compile Include="LocalSearch\ILocalSearchAlgorithm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Selection\ISelectionAlgorithm.cs" />
     <Compile Include="Selection\BestNSelectionAlgorithm.cs" />
-    <Compile Include="Selection\PostGeneration\PostGenerationSelectBestFromAll.cs" />
-    <Compile Include="Selection\PostGeneration\PostGenerationSelectBestFromChildren.cs" />
-    <Compile Include="Selection\RandomSelectionAlgorithm.cs" />
+    <Compile Include="Selection\ISelectionAlgorithm.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
