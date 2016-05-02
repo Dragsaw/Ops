@@ -17,6 +17,7 @@ namespace Gapp.Infrastructure
     {
         [Algorithm(typeof(RandomInitializationAlgorithm))]
         Random,
+        [Algorithm(typeof(GridInitializationAlgorithm))]
         Grid,
         User
     }

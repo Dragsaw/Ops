@@ -36,6 +36,7 @@ namespace Ga.Initialization
                 newChromosome.Value = random.Next((int)c.LowerLimit, (int)c.UpperLimit) + random.NextDouble();
                 individual.Genome.Add(newChromosome);
             }
+
             return individual;
         }
     }

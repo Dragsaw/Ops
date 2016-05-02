@@ -16,10 +16,10 @@ namespace Gapp
 {
     public partial class MainForm : Form
     {
-        AlgorithmsGridView grid = new AlgorithmsGridView();
-        AlgorithmFactory algorithmFactory = new AlgorithmFactory();
-        CalculationEngine engine = new CalculationEngine();
-        Func<double, double, double> function;
+        private readonly AlgorithmsGridView grid = new AlgorithmsGridView();
+        private readonly AlgorithmFactory algorithmFactory = new AlgorithmFactory();
+        private readonly CalculationEngine engine = new CalculationEngine();
+        private Func<double, double, double> function;
 
         public MainForm()
         {
@@ -75,11 +75,13 @@ namespace Gapp
                 .ToArray();
             algorithms
                 .AsParallel()
+                // todo: edit this
                 .ForAll(x => x.Solve(a => a.Population.Max(i => i.Generation) < 20));
             for (int i = 0; i < algorithms.Length; i++)
             {
                 var info = grid.Rows[i].DataBoundItem as AlgorithmInfo;
                 var best = algorithms[i].Population.OrderByDescending(x => x.Health).ThenBy(x => x.Id).First(x => x.IsHealthy);
+                // todo: refactor this
                 info.Rating = best.Health * 10 / (best.Generation * 0.5 + best.Id * 0.1);
             }
             grid.Refresh();
