@@ -16,11 +16,10 @@ namespace Ls.LocalSearch
             this.pointsFactory = pointsFactory;
         }
 
-        public bool Search(IList<Point> points, Func<double, double, double> func, Point lowerLimit, Point upperLimit)
+        public Point Search(Point sourcePoint, Func<double, double, double> func, Point lowerLimit, Point upperLimit)
         {
-            var step = 0.5;
-            var bestPoint = points.OrderByDescending(point => point.Z).First();
-            var newPoint = pointsFactory.Create(bestPoint);
+            var step = 0.05;
+            var newPoint = pointsFactory.Create(sourcePoint);
             for (double i = lowerLimit.X; i < upperLimit.X; i += step)
             {
                 var newZ = func(i, newPoint.Y);
@@ -41,9 +40,12 @@ namespace Ls.LocalSearch
                 }
             }
 
-            points.Add(newPoint);
+            if (Math.Abs((newPoint.Z - sourcePoint.Z) / sourcePoint.Z) < 0.01)
+            {
+                return null;
+            }
 
-            return bestPoint.X == newPoint.X && bestPoint.Y == newPoint.Y;
+            return newPoint;
         }
     }
 }

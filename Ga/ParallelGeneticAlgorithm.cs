@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 
 namespace Ga
 {
+    // todo: add iteration details
+    // todo: add step by step running
+    // todo: fix post generation selection
     public class ParallelGeneticAlgorithm
     {
         private int currentGeneration = 1;
@@ -113,6 +116,7 @@ namespace Ga
                 .ToList();
             var selected = firstSelection.Concat(secondSelection);
             // todo: мутация на родителях или потомках
+            // todo: изменить разбитие на пары
             var parents = paring.Pare(selected);
             var children = crossover.Crossover(parents, currentGeneration).ToList();
             var mutants = children

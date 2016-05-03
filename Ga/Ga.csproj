@@ -47,6 +47,7 @@
     <Compile Include="Infrastructure\IndividualsEventArgs.cs" />
     <Compile Include="Infrastructure\IndividualsFactory.cs" />
     <Compile Include="Initialization\GridInitializationAlgorithm.cs" />
+    <Compile Include="Mutation\ClassicDecimalMutation.cs" />
     <Compile Include="ParallelGeneticAlgorithm.cs" />
     <Compile Include="Chromosomes\Chromosome.cs" />
     <Compile Include="Chromosomes\IChromosome.cs" />

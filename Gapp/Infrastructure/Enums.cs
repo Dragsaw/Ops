@@ -18,8 +18,7 @@ namespace Gapp.Infrastructure
         [Algorithm(typeof(RandomInitializationAlgorithm))]
         Random,
         [Algorithm(typeof(GridInitializationAlgorithm))]
-        Grid,
-        User
+        Grid
     }
 
     public enum CrossoverAlgorithms
@@ -38,5 +37,27 @@ namespace Gapp.Infrastructure
         BestFromAll,
         [Algorithm(typeof(PostGenerationSelectBestFromChildren))]
         BestFromChildren
+    }
+
+    namespace Ls
+    {
+        public enum LocalSearchAlgorithms
+        {
+
+        }
+
+        public enum SelectionAlgorithms
+        {
+            [Algorithm(typeof (RandomSelectionAlgorithm))] Random,
+            [Algorithm(typeof (BestNSelectionAlgorithm))] BestN
+        }
+
+        public enum InitializationAlgorithms
+        {
+            [Algorithm(typeof(RandomInitializationAlgorithm))]
+            Random,
+            [Algorithm(typeof(GridInitializationAlgorithm))]
+            Grid
+        }
     }
 }

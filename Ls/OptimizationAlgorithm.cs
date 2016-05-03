@@ -22,6 +22,8 @@ namespace Ls
         private readonly Func<double, double, double> func;
         private readonly RunOptions runUntil;
 
+        public IEnumerable<Point> Points { get; set; }
+
         public OptimizationAlgorithm(IInitializationAlgorithm initializationAlgorithm,
             ISelectionAlgorithm selectionAlgorithm,
             ILocalSearchAlgorithm localSearchAlgorithm,
@@ -52,9 +54,17 @@ namespace Ls
             }
 
             var selected = selectionAlgorithm.Select(selectedCount, points).ToList();
-            while (localSearchAlgorithm.Search(selected, func, loweLimit, upperLimit) && runUntil == RunOptions.AutomaticStop)
+            foreach (var point in selected)
             {
+                var sourcePoint = point;
+                do
+                {
+                    sourcePoint.Next = localSearchAlgorithm.Search(sourcePoint, func, loweLimit, upperLimit);
+                    sourcePoint = sourcePoint.Next;
+                } while (sourcePoint != null && runUntil == RunOptions.AutomaticStop);
             }
+
+            Points = selected;
         }
     }
 }

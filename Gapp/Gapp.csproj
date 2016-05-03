@@ -65,6 +65,12 @@
       <DependentUpon>IndividualDetailsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\ExtentionMethods.cs" />
+    <Compile Include="LocalSearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LocalSearchForm.Designer.cs">
+      <DependentUpon>LocalSearchForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Management\AlgorithmInfo.cs" />
     <Compile Include="Infrastructure\AlgorithmsGridView.cs">
       <SubType>Component</SubType>
@@ -78,6 +84,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Management\AlgorithmFactory.cs" />
+    <Compile Include="Management\OptimizationAlgorithmFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AlgorithmDetailsForm.resx">
@@ -85,6 +92,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="IndividualDetailsForm.resx">
       <DependentUpon>IndividualDetailsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LocalSearchForm.resx">
+      <DependentUpon>LocalSearchForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -115,6 +125,10 @@
     <ProjectReference Include="..\Ga\Ga.csproj">
       <Project>{18605075-ccee-4784-8c7b-306091b8d647}</Project>
       <Name>Ga</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ls\Ls.csproj">
+      <Project>{89428FC5-5DF5-49A3-8824-36C21E2660BD}</Project>
+      <Name>Ls</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

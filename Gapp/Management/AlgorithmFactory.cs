@@ -25,20 +25,23 @@ namespace Gapp.Management
             var individualsFactory = new IndividualsFactory();
             var initialization = Activator.CreateInstance(info.Initialization.GetAlgorithmType(), individualsFactory) as IInitializationAlgorithm;
             var selection = Activator.CreateInstance(info.Selection.GetAlgorithmType()) as ISelectionAlgorithm;
-            var crossover = Activator.CreateInstance(info.Crossover.GetAlgorithmType(), individualsFactory) as ICrossoverAlgorithm;
+            var crossoverType = info.CrossoverAlgorithmType ?? info.Crossover.GetAlgorithmType();
+            var crossover = Activator.CreateInstance(crossoverType, individualsFactory) as ICrossoverAlgorithm;
             var postGenerationSelection = Activator.CreateInstance(info.PostGenerationSelection.GetAlgorithmType()) as IPostGenerationSelectionAlgorithm;
+            var mutation = Activator.CreateInstance(info.MutationAlgorithmType, individualsFactory) as IMutationAlgorithm;
 
             return new ParallelGeneticAlgorithm(
                 initialization,
                 selection,
+                // todo: разбитие на пары
                 new RandomParingAlgorithm(),
                 crossover,
-                new ClassicMutation(individualsFactory),
+                mutation,
                 postGenerationSelection,
                 healthAction,
                 info.PopulationSize,
                 info.MutationChance,
-                // todo: replace with actual number
+                // todo: заменить на число
                 null,
                 chromosomes);
         }

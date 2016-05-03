@@ -9,6 +9,6 @@ namespace Ls.LocalSearch
 {
     public interface ILocalSearchAlgorithm
     {
-        bool Search(IList<Point> points, Func<double, double, double> func, Point lowerLimit, Point upperLimit);
+        Point Search(Point points, Func<double, double, double> func, Point lowerLimit, Point upperLimit);
     }
 }
