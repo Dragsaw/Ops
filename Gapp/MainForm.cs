@@ -54,42 +54,36 @@ namespace Gapp
                 .Result(DataType.FloatingPoint)
                 .Build();
 
-            var algorithmInfos = new List<AlgorithmInfo>();
-            foreach (DataGridViewRow row in grid.Rows)
-            {
-                algorithmInfos.Add(row.DataBoundItem as AlgorithmInfo);
-            }
-
-
             var chromosomes = new[]
             {
                 new Chromosome { LowerLimit = (int)numMinX.Value, UpperLimit = (int)numMaxX.Value, Name = "X", Scale = (int)numScaleX.Value },
                 new Chromosome { LowerLimit = (int)numMinY.Value, UpperLimit = (int)numMaxY.Value, Name = "Y", Scale = (int)numScaleY.Value }
             };
-            var algorithms = algorithmInfos
-                .Select(x =>
-                {
-                    x.Algorithm = algorithmFactory.Create(x, this.HealthAction, chromosomes);
-                    return x.Algorithm;
-                })
-                .ToArray();
-            algorithms
-                .AsParallel()
-                // todo: edit this
-                .ForAll(x => x.Solve(a => a.Population.Max(i => i.Generation) < 20));
-            for (int i = 0; i < algorithms.Length; i++)
+
+            foreach (var info in grid.Algorithms.Where(a => a.Algorithm == null))
             {
-                var info = grid.Rows[i].DataBoundItem as AlgorithmInfo;
-                var best = algorithms[i].Population.OrderByDescending(x => x.Health).ThenBy(x => x.Id).First(x => x.IsHealthy);
-                // todo: refactor this
-                info.Rating = best.Health * 10 / (best.Generation * 0.5 + best.Id * 0.1);
+                info.Algorithm = algorithmFactory.Create(info, this.HealthAction, chromosomes);
             }
+
+            var runCount = (int)numRunCount.Value;
+            grid.Algorithms.AsParallel().ForAll(a =>
+            {
+                var i = 0;
+                a.Algorithm.Solve(pga => ++i < runCount);
+                a.Rating = CalculateRating(a.Algorithm.BestIndividual);
+            });
+
             grid.Refresh();
         }
 
         private void HealthAction(IIndividual individual)
         {
             individual.Health = function(individual.Genome.First().Value, individual.Genome.Last().Value);
+        }
+
+        private double CalculateRating(IIndividual bestIndividual)
+        {
+            return bestIndividual.Health * 10 / (bestIndividual.Generation * 0.5 + bestIndividual.Id * 0.1);
         }
 
         private void buttonInfo_Click(object sender, EventArgs e)

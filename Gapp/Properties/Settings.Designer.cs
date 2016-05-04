@@ -70,5 +70,29 @@ namespace Gapp.Properties {
                 this["DefaultFunction"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public decimal DefaultUpperX {
+            get {
+                return ((decimal)(this["DefaultUpperX"]));
+            }
+            set {
+                this["DefaultUpperX"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public decimal DefaultRunCount {
+            get {
+                return ((decimal)(this["DefaultRunCount"]));
+            }
+            set {
+                this["DefaultRunCount"] = value;
+            }
+        }
     }
 }

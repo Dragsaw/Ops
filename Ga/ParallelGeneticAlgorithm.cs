@@ -15,7 +15,6 @@ using System.Threading.Tasks;
 namespace Ga
 {
     // todo: add iteration details
-    // todo: add step by step running
     // todo: fix post generation selection
     public class ParallelGeneticAlgorithm
     {
@@ -37,6 +36,13 @@ namespace Ga
 
         public IEnumerable<IIndividual> Population { get { return population; } }
         public IList<IEnumerable<IIndividual>> History { get; private set; }
+        public IIndividual BestIndividual
+        {
+            get
+            {
+                return population.OrderByDescending(x => x.Health).ThenBy(x => x.Id).First(x => x.IsHealthy);
+            }
+        }
 
         public ParallelGeneticAlgorithm(
             IInitializationAlgorithm initialization,
@@ -92,9 +98,14 @@ namespace Ga
             }
 
             Task.WaitAll(tasks);
-            var resultIndividuals = tasks.SelectMany(x => x.Result);
-            population.AddRange(resultIndividuals);
-            NewIndividualsAdded(this, new IndividualsEventArgs { NewIndividuals = resultIndividuals });
+            var best = this.BestIndividual;
+            population = tasks.SelectMany(x => x.Result).Distinct().ToList();
+            if (population.Contains(best) == false)
+            {
+                population.Add(best);
+            }
+
+            NewIndividualsAdded(this, new IndividualsEventArgs { NewIndividuals = population });
         }
 
         public void Solve(Func<ParallelGeneticAlgorithm, bool> condition)
@@ -109,10 +120,10 @@ namespace Ga
         private IEnumerable<IIndividual> RunProcess()
         {
             var firstSelection = selection
-                .Select(population, populationSize)
+                .Select(population, 2)
                 .ToList();
             var secondSelection = selection
-                .Select(population, populationSize)
+                .Select(population, 2)
                 .ToList();
             var selected = firstSelection.Concat(secondSelection);
             // todo: мутация на родителях или потомках

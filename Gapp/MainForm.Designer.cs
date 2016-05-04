@@ -34,7 +34,6 @@
             this.listCrossover = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.numMutationChance = new System.Windows.Forms.NumericUpDown();
             this.listPostGenerationSelection = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.listSelection = new System.Windows.Forms.ComboBox();
@@ -42,7 +41,6 @@
             this.listInitialization = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.numN = new System.Windows.Forms.NumericUpDown();
             this.buttonInfo = new System.Windows.Forms.Button();
             this.groupFunction = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -51,25 +49,30 @@
             this.numScaleX = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.numMaxY = new System.Windows.Forms.NumericUpDown();
-            this.numMaxX = new System.Windows.Forms.NumericUpDown();
             this.numMinY = new System.Windows.Forms.NumericUpDown();
             this.numMinX = new System.Windows.Forms.NumericUpDown();
+            this.numRunCount = new System.Windows.Forms.NumericUpDown();
+            this.numMaxY = new System.Windows.Forms.NumericUpDown();
+            this.numMaxX = new System.Windows.Forms.NumericUpDown();
             this.textBoxFunction = new System.Windows.Forms.TextBox();
+            this.numMutationChance = new System.Windows.Forms.NumericUpDown();
+            this.numN = new System.Windows.Forms.NumericUpDown();
             this.GroupAlgorithm.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMutationChance)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numN)).BeginInit();
             this.groupFunction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numScaleY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numScaleX)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numRunCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMutationChance)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numN)).BeginInit();
             this.SuspendLayout();
             // 
             // GroupAlgorithm
             // 
+            this.GroupAlgorithm.Controls.Add(this.numRunCount);
             this.GroupAlgorithm.Controls.Add(this.buttonAdd);
             this.GroupAlgorithm.Controls.Add(this.buttonRunAll);
             this.GroupAlgorithm.Controls.Add(this.listCrossover);
@@ -139,26 +142,6 @@
             this.label5.TabIndex = 9;
             this.label5.Text = "μ:";
             // 
-            // numMutationChance
-            // 
-            this.numMutationChance.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Gapp.Properties.Settings.Default, "DefaultU", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numMutationChance.DecimalPlaces = 1;
-            this.numMutationChance.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.numMutationChance.Location = new System.Drawing.Point(148, 18);
-            this.numMutationChance.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numMutationChance.Name = "numMutationChance";
-            this.numMutationChance.Size = new System.Drawing.Size(44, 20);
-            this.numMutationChance.TabIndex = 8;
-            this.numMutationChance.Value = global::Gapp.Properties.Settings.Default.DefaultU;
-            // 
             // listPostGenerationSelection
             // 
             this.listPostGenerationSelection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -220,15 +203,6 @@
             this.label1.Size = new System.Drawing.Size(18, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "N:";
-            // 
-            // numN
-            // 
-            this.numN.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Gapp.Properties.Settings.Default, "DefaultN", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numN.Location = new System.Drawing.Point(76, 18);
-            this.numN.Name = "numN";
-            this.numN.Size = new System.Drawing.Size(44, 20);
-            this.numN.TabIndex = 0;
-            this.numN.Value = global::Gapp.Properties.Settings.Default.DefaultN;
             // 
             // buttonInfo
             // 
@@ -310,24 +284,6 @@
             this.label7.TabIndex = 21;
             this.label7.Text = "< X <";
             // 
-            // numMaxY
-            // 
-            this.numMaxY.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Gapp.Properties.Settings.Default, "DefaultUpperValue", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numMaxY.Location = new System.Drawing.Point(94, 71);
-            this.numMaxY.Name = "numMaxY";
-            this.numMaxY.Size = new System.Drawing.Size(44, 20);
-            this.numMaxY.TabIndex = 20;
-            this.numMaxY.Value = global::Gapp.Properties.Settings.Default.DefaultUpperValue;
-            // 
-            // numMaxX
-            // 
-            this.numMaxX.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Gapp.Properties.Settings.Default, "DefaultUpperValue", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numMaxX.Location = new System.Drawing.Point(94, 47);
-            this.numMaxX.Name = "numMaxX";
-            this.numMaxX.Size = new System.Drawing.Size(44, 20);
-            this.numMaxX.TabIndex = 19;
-            this.numMaxX.Value = global::Gapp.Properties.Settings.Default.DefaultUpperValue;
-            // 
             // numMinY
             // 
             this.numMinY.Location = new System.Drawing.Point(6, 71);
@@ -342,6 +298,33 @@
             this.numMinX.Size = new System.Drawing.Size(44, 20);
             this.numMinX.TabIndex = 17;
             // 
+            // numRunCount
+            // 
+            this.numRunCount.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Gapp.Properties.Settings.Default, "DefaultRunCount", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numRunCount.Location = new System.Drawing.Point(289, 113);
+            this.numRunCount.Name = "numRunCount";
+            this.numRunCount.Size = new System.Drawing.Size(44, 20);
+            this.numRunCount.TabIndex = 27;
+            this.numRunCount.Value = global::Gapp.Properties.Settings.Default.DefaultRunCount;
+            // 
+            // numMaxY
+            // 
+            this.numMaxY.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Gapp.Properties.Settings.Default, "DefaultUpperValue", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numMaxY.Location = new System.Drawing.Point(94, 71);
+            this.numMaxY.Name = "numMaxY";
+            this.numMaxY.Size = new System.Drawing.Size(44, 20);
+            this.numMaxY.TabIndex = 20;
+            this.numMaxY.Value = global::Gapp.Properties.Settings.Default.DefaultUpperValue;
+            // 
+            // numMaxX
+            // 
+            this.numMaxX.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Gapp.Properties.Settings.Default, "DefaultUpperX", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numMaxX.Location = new System.Drawing.Point(94, 47);
+            this.numMaxX.Name = "numMaxX";
+            this.numMaxX.Size = new System.Drawing.Size(44, 20);
+            this.numMaxX.TabIndex = 19;
+            this.numMaxX.Value = global::Gapp.Properties.Settings.Default.DefaultUpperX;
+            // 
             // textBoxFunction
             // 
             this.textBoxFunction.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Gapp.Properties.Settings.Default, "DefaultFunction", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
@@ -350,6 +333,35 @@
             this.textBoxFunction.Size = new System.Drawing.Size(322, 20);
             this.textBoxFunction.TabIndex = 0;
             this.textBoxFunction.Text = global::Gapp.Properties.Settings.Default.DefaultFunction;
+            // 
+            // numMutationChance
+            // 
+            this.numMutationChance.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Gapp.Properties.Settings.Default, "DefaultU", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numMutationChance.DecimalPlaces = 1;
+            this.numMutationChance.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numMutationChance.Location = new System.Drawing.Point(148, 18);
+            this.numMutationChance.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numMutationChance.Name = "numMutationChance";
+            this.numMutationChance.Size = new System.Drawing.Size(44, 20);
+            this.numMutationChance.TabIndex = 8;
+            this.numMutationChance.Value = global::Gapp.Properties.Settings.Default.DefaultU;
+            // 
+            // numN
+            // 
+            this.numN.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Gapp.Properties.Settings.Default, "DefaultN", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numN.Location = new System.Drawing.Point(76, 18);
+            this.numN.Name = "numN";
+            this.numN.Size = new System.Drawing.Size(44, 20);
+            this.numN.TabIndex = 0;
+            this.numN.Value = global::Gapp.Properties.Settings.Default.DefaultN;
             // 
             // MainForm
             // 
@@ -365,16 +377,17 @@
             this.Text = "Main Form";
             this.GroupAlgorithm.ResumeLayout(false);
             this.GroupAlgorithm.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMutationChance)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numN)).EndInit();
             this.groupFunction.ResumeLayout(false);
             this.groupFunction.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numScaleY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numScaleX)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numRunCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMutationChance)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numN)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -409,6 +422,7 @@
         private System.Windows.Forms.TextBox textBoxFunction;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.NumericUpDown numRunCount;
     }
 }
 
