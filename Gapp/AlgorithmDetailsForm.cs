@@ -13,6 +13,7 @@ using Ga;
 using Ga.Chromosomes;
 using Ga.Individuals;
 using Ga.Infrastructure;
+using Gapp.Infrastructure;
 
 namespace Gapp
 {
@@ -81,43 +82,7 @@ namespace Gapp
 
             buttonPrevious.Enabled = false;
             currentIteration = algorithm.History.First;
-            ShowIterationDetails(currentIteration.Value);
-        }
-
-        public void ShowIterationDetails(Iteration iteration)
-        {
-            series.Points.Clear();
-            grid.Rows.Clear();
-
-            foreach (var individual in iteration.InitialPopulation)
-            {
-                AddIndividual(individual);
-            }
-
-            var emptyRow = grid.Rows.Add();
-            grid.Rows[emptyRow].DefaultCellStyle.BackColor = Color.Yellow;
-
-
-            foreach (var individual in iteration.Parents)
-            {
-                AddIndividual(individual);
-            }
-
-            emptyRow = grid.Rows.Add();
-            grid.Rows[emptyRow].DefaultCellStyle.BackColor = Color.Orange;
-
-            foreach (var child in iteration.Children)
-            {
-                AddIndividual(child);
-            }
-
-            emptyRow = grid.Rows.Add();
-            grid.Rows[emptyRow].DefaultCellStyle.BackColor = Color.Green;
-
-            foreach (var individual in iteration.PostGenerationSelected ?? new List<IIndividual>())
-            {
-                AddIndividual(individual);
-            }
+            grid.ShowIteration(currentIteration.Value, AddIndividual);
         }
 
         private void AddIndividual(IIndividual individual)
@@ -168,6 +133,8 @@ namespace Gapp
 
         private void ShowOtherIteration(object sender, EventArgs e)
         {
+            series.Points.Clear();
+
             var button = sender as Button;
             if (button.Text == "Next")
             {
@@ -185,7 +152,7 @@ namespace Gapp
             buttonPrevious.Enabled = currentIteration.Previous != null;
             buttonLast.Enabled = buttonNext.Enabled = currentIteration.Next != null;
 
-            ShowIterationDetails(currentIteration.Value);
+            grid.ShowIteration(currentIteration.Value, AddIndividual);
         }
     }
 }

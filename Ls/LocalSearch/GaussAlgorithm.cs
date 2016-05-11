@@ -40,7 +40,8 @@ namespace Ls.LocalSearch
                 }
             }
 
-            if (Math.Abs((newPoint.Z - sourcePoint.Z) / sourcePoint.Z) < 0.01)
+            var delta = (newPoint.Z - sourcePoint.Z) / sourcePoint.Z;
+            if (Math.Abs(delta) < 0.01 || double.IsInfinity(delta) || double.IsNaN(delta))
             {
                 return null;
             }

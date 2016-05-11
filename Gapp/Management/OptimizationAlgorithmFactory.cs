@@ -18,16 +18,16 @@ namespace Gapp.Management
     {
         public OptimizationAlgorithm Create(IIndividual individual, Point upperLimit, Point lowerLimit, Func<double, double, double> func)
         {
-            var initialization = (Infrastructure.Ls.InitializationAlgorithms)individual.Genome.First(x => x.Name == "Initialization").Value;
-            var selection = (Infrastructure.Ls.SelectionAlgorithms)individual.Genome.First(x => x.Name == "Selection").Value;
-            var search = (Infrastructure.Ls.LocalSearchAlgorithms)individual.Genome.First(x => x.Name == "Search").Value;
+            var initialization = (LsInitializationAlgorithms)individual.Genome.First(x => x.Name == "Initialization").Value;
+            var selection = (LsSelectionAlgorithms)individual.Genome.First(x => x.Name == "Selection").Value;
+            var search = (LsLocalSearchAlgorithms)individual.Genome.First(x => x.Name == "Search").Value;
             var initialCount = (int)individual.Genome.First(x => x.Name == "N").Value;
             var selectedCount = (int)individual.Genome.First(x => x.Name == "n").Value;
             var runCondition = (RunOptions)individual.Genome.First(x => x.Name == "Run").Value;
 
             var pointsFactory = new PointsFactory(); ;
             var initializationAlgorithm = Activator.CreateInstance(initialization.GetAlgorithmType(), pointsFactory) as IInitializationAlgorithm;
-            var selectionAlgorithm = Activator.CreateInstance(selection.GetAlgorithmType(), pointsFactory) as ISelectionAlgorithm;
+            var selectionAlgorithm = Activator.CreateInstance(selection.GetAlgorithmType()) as ISelectionAlgorithm;
             var searchAlgorithm = Activator.CreateInstance(search.GetAlgorithmType(), pointsFactory) as ILocalSearchAlgorithm;
 
             return new OptimizationAlgorithm(initializationAlgorithm, selectionAlgorithm, searchAlgorithm, upperLimit, lowerLimit, initialCount, selectedCount, func, runCondition);

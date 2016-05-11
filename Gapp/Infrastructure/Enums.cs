@@ -2,6 +2,7 @@
 using Ga.Initialization;
 using Ga.Selection;
 using Ga.Selection.PostGeneration;
+using Ls.LocalSearch;
 
 namespace Gapp.Infrastructure
 {
@@ -39,25 +40,25 @@ namespace Gapp.Infrastructure
         BestFromChildren
     }
 
-    namespace Ls
+    public enum LsLocalSearchAlgorithms
     {
-        public enum LocalSearchAlgorithms
-        {
+        [Algorithm(typeof(GaussAlgorithm))]
+        Gauss
+    }
 
-        }
+    public enum LsSelectionAlgorithms
+    {
+        //[Algorithm(typeof(RandomSelectionAlgorithm))]
+        //Random,
+        [Algorithm(typeof(Ls.Selection.BestNSelectionAlgorithm))]
+        BestN
+    }
 
-        public enum SelectionAlgorithms
-        {
-            [Algorithm(typeof (RandomSelectionAlgorithm))] Random,
-            [Algorithm(typeof (BestNSelectionAlgorithm))] BestN
-        }
-
-        public enum InitializationAlgorithms
-        {
-            [Algorithm(typeof(RandomInitializationAlgorithm))]
-            Random,
-            [Algorithm(typeof(GridInitializationAlgorithm))]
-            Grid
-        }
+    public enum LsInitializationAlgorithms
+    {
+        [Algorithm(typeof(Ls.Initialization.RandomInitializationAlgorithm))]
+        Random,
+        //[Algorithm(typeof(GridInitializationAlgorithm))]
+        //Grid
     }
 }

@@ -92,5 +92,12 @@ namespace Gapp
             var infoForm = new AlgorithmDetailsForm(algorithmInfo.Algorithm);
             infoForm.Show(this);
         }
+
+        private void buttonLocalSearch_Click(object sender, EventArgs e)
+        {
+            var algorithmInfo = grid.SelectedRows[0].DataBoundItem as AlgorithmInfo;
+            var localSearchForm = new LocalSearchForm(algorithmInfo);
+            localSearchForm.Show(this);
+        }
     }
 }

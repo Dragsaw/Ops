@@ -77,7 +77,7 @@ namespace Ga
             if (this.History.Count == 1)
             {
                 population = initialization.Initialize(populationSize, genome).ToList();
-                population.AsParallel().ForAll(this.healthAction);
+                population.Where(x => x.IsHealthy).AsParallel().ForAll(this.healthAction);
                 History.Last.Value.InitialPopulation = this.Population;
                 return;
             }
@@ -152,7 +152,7 @@ namespace Ga
                 History.Last.Value.Children.AddRange(children);
             }
 
-            return postGenerationSelection.Select(children, returnIndividualsCount);
+            return postGenerationSelection.Select(children, returnIndividualsCount).Where(x => x != null);
         }
     }
 }

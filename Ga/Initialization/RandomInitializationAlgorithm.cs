@@ -33,7 +33,12 @@ namespace Ga.Initialization
             foreach (var c in chromosomes)
             {
                 var newChromosome = c.Clone();
-                newChromosome.Value = random.Next((int)c.LowerLimit, (int)c.UpperLimit) + random.NextDouble();
+                newChromosome.Value = random.Next((int)c.LowerLimit, (int)c.UpperLimit);
+                if (newChromosome.Scale > 0)
+                {
+                    newChromosome.Value += Math.Round(random.NextDouble(), newChromosome.Scale);
+                }
+
                 individual.Genome.Add(newChromosome);
             }
 

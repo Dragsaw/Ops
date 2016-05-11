@@ -14,6 +14,7 @@ namespace Ga.Individuals
         public Individual()
         {
             Genome = new List<IChromosome>();
+            Parents = new Pare();
         }
 
         public Binary Bits
@@ -63,6 +64,7 @@ namespace Ga.Individuals
                 Generation = this.Generation,
                 Genome = this.Genome.Select(x => x.Clone()).ToList(),
                 Health = this.Health,
+                Parents = this.Parents
             };
         }
     }

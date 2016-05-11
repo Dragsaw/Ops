@@ -32,11 +32,6 @@ namespace Ga.Mutation
 
                 newIndividual.IsMutant = true;
                 chromosome.Value = random.Next((int)chromosome.LowerLimit, (int)chromosome.UpperLimit);
-                if (chromosome.Scale > 0)
-                {
-                    // todo: think if this is okay
-                    chromosome.Value += Math.Round(random.NextDouble(), chromosome.Scale);
-                }
             }
 
             if (newIndividual.IsMutant == false)
