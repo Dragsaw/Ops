@@ -31,11 +31,10 @@ namespace Ga
         private IChromosome[] genome;
         private double mutationChance;
         private int? returnIndividualsCount;
-
-        public event EventHandler<IndividualsEventArgs> NewIndividualsAdded;
+        private object syncToken = new object();
 
         public IEnumerable<IIndividual> Population { get { return population; } }
-        public IList<IEnumerable<IIndividual>> History { get; private set; }
+        public LinkedList<Iteration> History { get; private set; }
         public IIndividual BestIndividual
         {
             get
@@ -69,17 +68,17 @@ namespace Ga
             this.mutationChance = mutationChance;
             this.returnIndividualsCount = returnIndividualsCount;
 
-            this.NewIndividualsAdded += SaveNewIndividuals;
-            this.History = new List<IEnumerable<IIndividual>>();
+            this.History = new LinkedList<Iteration>();
         }
 
         public void Run()
         {
-            if (this.History.Count == 0)
+            History.AddLast(new Iteration());
+            if (this.History.Count == 1)
             {
                 population = initialization.Initialize(populationSize, genome).ToList();
                 population.AsParallel().ForAll(this.healthAction);
-                NewIndividualsAdded(this, new IndividualsEventArgs { NewIndividuals = this.Population });
+                History.Last.Value.InitialPopulation = this.Population;
                 return;
             }
 
@@ -89,6 +88,7 @@ namespace Ga
                 .ThenBy(x => x.Id)
                 .Take(populationSize)
                 .ToList();
+            History.Last.Value.InitialPopulation = this.Population;
             currentGeneration++;
             var tasks = new Task<IEnumerable<IIndividual>>[population.Count / 2];
             for (int i = 0; i < population.Count / 2; i++)
@@ -105,7 +105,7 @@ namespace Ga
                 population.Add(best);
             }
 
-            NewIndividualsAdded(this, new IndividualsEventArgs { NewIndividuals = population });
+            History.Last.Value.PostGenerationSelected = this.Population;
         }
 
         public void Solve(Func<ParallelGeneticAlgorithm, bool> condition)
@@ -135,13 +135,24 @@ namespace Ga
                 .Where(mutant => mutant != null)
                 .ToArray();
             children.AddRange(mutants);
-            children.ForEach(healthAction);
-            return postGenerationSelection.Select(children, returnIndividualsCount);
-        }
+            foreach (var child in children)
+            {
+                if (child.IsHealthy)
+                {
+                    healthAction(child);
+                }
+                else
+                {
+                    child.Health = double.NaN;
+                }
+            }
 
-        private void SaveNewIndividuals(object sender, IndividualsEventArgs e)
-        {
-            this.History.Add(e.NewIndividuals);
+            lock (syncToken)
+            {
+                History.Last.Value.Children.AddRange(children);
+            }
+
+            return postGenerationSelection.Select(children, returnIndividualsCount);
         }
     }
 }

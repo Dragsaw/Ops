@@ -33,6 +33,9 @@
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.grid = new System.Windows.Forms.DataGridView();
+            this.buttonPrevious = new System.Windows.Forms.Button();
+            this.buttonNext = new System.Windows.Forms.Button();
+            this.buttonLast = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             this.SuspendLayout();
@@ -52,7 +55,7 @@
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chart.Series.Add(series1);
-            this.chart.Size = new System.Drawing.Size(550, 437);
+            this.chart.Size = new System.Drawing.Size(550, 408);
             this.chart.TabIndex = 0;
             this.chart.Text = "chart1";
             // 
@@ -67,14 +70,50 @@
             this.grid.TabIndex = 1;
             this.grid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_CellDoubleClick);
             // 
-            // AlgorithmInfoForm
+            // buttonPrevious
+            // 
+            this.buttonPrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonPrevious.Location = new System.Drawing.Point(12, 426);
+            this.buttonPrevious.Name = "buttonPrevious";
+            this.buttonPrevious.Size = new System.Drawing.Size(75, 23);
+            this.buttonPrevious.TabIndex = 2;
+            this.buttonPrevious.Text = "Previous";
+            this.buttonPrevious.UseVisualStyleBackColor = true;
+            this.buttonPrevious.Click += new System.EventHandler(this.ShowOtherIteration);
+            // 
+            // buttonNext
+            // 
+            this.buttonNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonNext.Location = new System.Drawing.Point(451, 426);
+            this.buttonNext.Name = "buttonNext";
+            this.buttonNext.Size = new System.Drawing.Size(75, 23);
+            this.buttonNext.TabIndex = 3;
+            this.buttonNext.Text = "Next";
+            this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Click += new System.EventHandler(this.ShowOtherIteration);
+            // 
+            // buttonLast
+            // 
+            this.buttonLast.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonLast.Location = new System.Drawing.Point(532, 426);
+            this.buttonLast.Name = "buttonLast";
+            this.buttonLast.Size = new System.Drawing.Size(30, 23);
+            this.buttonLast.TabIndex = 4;
+            this.buttonLast.Text = ">>";
+            this.buttonLast.UseVisualStyleBackColor = true;
+            this.buttonLast.Click += new System.EventHandler(this.ShowOtherIteration);
+            // 
+            // AlgorithmDetailsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 461);
+            this.Controls.Add(this.buttonLast);
+            this.Controls.Add(this.buttonNext);
+            this.Controls.Add(this.buttonPrevious);
             this.Controls.Add(this.grid);
             this.Controls.Add(this.chart);
-            this.Name = "AlgorithmInfoForm";
+            this.Name = "AlgorithmDetailsForm";
             this.Text = "InfoForm";
             ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
@@ -86,5 +125,8 @@
 
         private System.Windows.Forms.DataVisualization.Charting.Chart chart;
         private System.Windows.Forms.DataGridView grid;
+        private System.Windows.Forms.Button buttonPrevious;
+        private System.Windows.Forms.Button buttonNext;
+        private System.Windows.Forms.Button buttonLast;
     }
 }

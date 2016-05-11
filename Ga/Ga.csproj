@@ -46,6 +46,7 @@
     <Compile Include="Crossover\DoublePointCrossoverAlgorithm.cs" />
     <Compile Include="Infrastructure\IndividualsEventArgs.cs" />
     <Compile Include="Infrastructure\IndividualsFactory.cs" />
+    <Compile Include="Infrastructure\Iteration.cs" />
     <Compile Include="Initialization\GridInitializationAlgorithm.cs" />
     <Compile Include="Mutation\ClassicDecimalMutation.cs" />
     <Compile Include="ParallelGeneticAlgorithm.cs" />
