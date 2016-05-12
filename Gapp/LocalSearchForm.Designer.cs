@@ -36,17 +36,19 @@
             this.numScaleX = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.numMaxY = new System.Windows.Forms.NumericUpDown();
-            this.numMaxX = new System.Windows.Forms.NumericUpDown();
             this.numMinY = new System.Windows.Forms.NumericUpDown();
             this.numMinX = new System.Windows.Forms.NumericUpDown();
-            this.textBoxFunction = new System.Windows.Forms.TextBox();
             this.grid = new System.Windows.Forms.DataGridView();
             this.buttonPrevious = new System.Windows.Forms.Button();
             this.buttonNext = new System.Windows.Forms.Button();
             this.buttonFirst = new System.Windows.Forms.Button();
             this.buttonLast = new System.Windows.Forms.Button();
+            this.buttonInfo = new System.Windows.Forms.Button();
+            this.numMaxY = new System.Windows.Forms.NumericUpDown();
+            this.numMaxX = new System.Windows.Forms.NumericUpDown();
+            this.textBoxFunction = new System.Windows.Forms.TextBox();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Parents = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Initialization = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Selection = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Search = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,16 +60,17 @@
             this.groupFunction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numScaleY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numScaleX)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxX)).BeginInit();
             this.SuspendLayout();
             // 
             // groupFunction
             // 
             this.groupFunction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupFunction.Controls.Add(this.buttonInfo);
             this.groupFunction.Controls.Add(this.buttonRun);
             this.groupFunction.Controls.Add(this.label10);
             this.groupFunction.Controls.Add(this.numScaleY);
@@ -80,7 +83,7 @@
             this.groupFunction.Controls.Add(this.numMinY);
             this.groupFunction.Controls.Add(this.numMinX);
             this.groupFunction.Controls.Add(this.textBoxFunction);
-            this.groupFunction.Location = new System.Drawing.Point(354, 12);
+            this.groupFunction.Location = new System.Drawing.Point(348, 12);
             this.groupFunction.Name = "groupFunction";
             this.groupFunction.Size = new System.Drawing.Size(334, 140);
             this.groupFunction.TabIndex = 18;
@@ -147,24 +150,6 @@
             this.label7.TabIndex = 21;
             this.label7.Text = "< X <";
             // 
-            // numMaxY
-            // 
-            this.numMaxY.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Gapp.Properties.Settings.Default, "DefaultUpperValue", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numMaxY.Location = new System.Drawing.Point(94, 71);
-            this.numMaxY.Name = "numMaxY";
-            this.numMaxY.Size = new System.Drawing.Size(44, 20);
-            this.numMaxY.TabIndex = 20;
-            this.numMaxY.Value = global::Gapp.Properties.Settings.Default.DefaultUpperValue;
-            // 
-            // numMaxX
-            // 
-            this.numMaxX.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Gapp.Properties.Settings.Default, "DefaultUpperValue", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numMaxX.Location = new System.Drawing.Point(94, 47);
-            this.numMaxX.Name = "numMaxX";
-            this.numMaxX.Size = new System.Drawing.Size(44, 20);
-            this.numMaxX.TabIndex = 19;
-            this.numMaxX.Value = global::Gapp.Properties.Settings.Default.DefaultUpperValue;
-            // 
             // numMinY
             // 
             this.numMinY.Location = new System.Drawing.Point(6, 71);
@@ -179,15 +164,6 @@
             this.numMinX.Size = new System.Drawing.Size(44, 20);
             this.numMinX.TabIndex = 17;
             // 
-            // textBoxFunction
-            // 
-            this.textBoxFunction.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Gapp.Properties.Settings.Default, "DefaultFunction", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxFunction.Location = new System.Drawing.Point(6, 19);
-            this.textBoxFunction.Name = "textBoxFunction";
-            this.textBoxFunction.Size = new System.Drawing.Size(322, 20);
-            this.textBoxFunction.TabIndex = 0;
-            this.textBoxFunction.Text = global::Gapp.Properties.Settings.Default.DefaultFunction;
-            // 
             // grid
             // 
             this.grid.AllowUserToAddRows = false;
@@ -198,6 +174,7 @@
             this.grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
+            this.Parents,
             this.Initialization,
             this.Selection,
             this.Search,
@@ -209,7 +186,7 @@
             this.grid.Location = new System.Drawing.Point(12, 158);
             this.grid.Name = "grid";
             this.grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grid.Size = new System.Drawing.Size(676, 256);
+            this.grid.Size = new System.Drawing.Size(670, 255);
             this.grid.TabIndex = 19;
             // 
             // buttonPrevious
@@ -225,7 +202,7 @@
             // buttonNext
             // 
             this.buttonNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonNext.Location = new System.Drawing.Point(237, 129);
+            this.buttonNext.Location = new System.Drawing.Point(231, 129);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(75, 23);
             this.buttonNext.TabIndex = 29;
@@ -246,7 +223,7 @@
             // buttonLast
             // 
             this.buttonLast.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLast.Location = new System.Drawing.Point(318, 129);
+            this.buttonLast.Location = new System.Drawing.Point(312, 129);
             this.buttonLast.Name = "buttonLast";
             this.buttonLast.Size = new System.Drawing.Size(30, 23);
             this.buttonLast.TabIndex = 31;
@@ -254,12 +231,56 @@
             this.buttonLast.UseVisualStyleBackColor = true;
             this.buttonLast.Click += new System.EventHandler(this.ShowOtherIteration);
             // 
+            // buttonInfo
+            // 
+            this.buttonInfo.Location = new System.Drawing.Point(6, 111);
+            this.buttonInfo.Name = "buttonInfo";
+            this.buttonInfo.Size = new System.Drawing.Size(75, 23);
+            this.buttonInfo.TabIndex = 28;
+            this.buttonInfo.Text = "Info";
+            this.buttonInfo.UseVisualStyleBackColor = true;
+            this.buttonInfo.Click += new System.EventHandler(this.buttonInfo_Click);
+            // 
+            // numMaxY
+            // 
+            this.numMaxY.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Gapp.Properties.Settings.Default, "DefaultUpperValue", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numMaxY.Location = new System.Drawing.Point(94, 71);
+            this.numMaxY.Name = "numMaxY";
+            this.numMaxY.Size = new System.Drawing.Size(44, 20);
+            this.numMaxY.TabIndex = 20;
+            this.numMaxY.Value = global::Gapp.Properties.Settings.Default.DefaultUpperValue;
+            // 
+            // numMaxX
+            // 
+            this.numMaxX.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Gapp.Properties.Settings.Default, "DefaultUpperValue", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numMaxX.Location = new System.Drawing.Point(94, 47);
+            this.numMaxX.Name = "numMaxX";
+            this.numMaxX.Size = new System.Drawing.Size(44, 20);
+            this.numMaxX.TabIndex = 19;
+            this.numMaxX.Value = global::Gapp.Properties.Settings.Default.DefaultUpperValue;
+            // 
+            // textBoxFunction
+            // 
+            this.textBoxFunction.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Gapp.Properties.Settings.Default, "DefaultFunction", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBoxFunction.Location = new System.Drawing.Point(6, 19);
+            this.textBoxFunction.Name = "textBoxFunction";
+            this.textBoxFunction.Size = new System.Drawing.Size(322, 20);
+            this.textBoxFunction.TabIndex = 0;
+            this.textBoxFunction.Text = global::Gapp.Properties.Settings.Default.DefaultFunction;
+            // 
             // Id
             // 
             this.Id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Id.FillWeight = 4F;
             this.Id.HeaderText = "Id";
             this.Id.Name = "Id";
+            // 
+            // Parents
+            // 
+            this.Parents.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Parents.FillWeight = 4F;
+            this.Parents.HeaderText = "Parents";
+            this.Parents.Name = "Parents";
             // 
             // Initialization
             // 
@@ -285,14 +306,14 @@
             // initialCount
             // 
             this.initialCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.initialCount.FillWeight = 12F;
+            this.initialCount.FillWeight = 10F;
             this.initialCount.HeaderText = "N";
             this.initialCount.Name = "initialCount";
             // 
             // selectedCount
             // 
             this.selectedCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.selectedCount.FillWeight = 12F;
+            this.selectedCount.FillWeight = 10F;
             this.selectedCount.HeaderText = "n";
             this.selectedCount.Name = "selectedCount";
             // 
@@ -321,7 +342,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(700, 426);
+            this.ClientSize = new System.Drawing.Size(694, 425);
             this.Controls.Add(this.buttonLast);
             this.Controls.Add(this.buttonFirst);
             this.Controls.Add(this.buttonPrevious);
@@ -334,11 +355,11 @@
             this.groupFunction.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numScaleY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numScaleX)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxX)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -363,7 +384,9 @@
         private System.Windows.Forms.Button buttonNext;
         private System.Windows.Forms.Button buttonFirst;
         private System.Windows.Forms.Button buttonLast;
+        private System.Windows.Forms.Button buttonInfo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Parents;
         private System.Windows.Forms.DataGridViewTextBoxColumn Initialization;
         private System.Windows.Forms.DataGridViewTextBoxColumn Selection;
         private System.Windows.Forms.DataGridViewTextBoxColumn Search;

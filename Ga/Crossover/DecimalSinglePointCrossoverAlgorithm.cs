@@ -27,6 +27,8 @@ namespace Ga.Crossover
             var point = ind1.Genome.Count / 2;
             ind1.Genome = pare.First.Genome.Take(point).Concat(pare.Second.Genome.Skip(point)).ToList();
             ind2.Genome = pare.Second.Genome.Take(point).Concat(pare.First.Genome.Skip(point)).ToList();
+            ind1.Parents = pare;
+            ind2.Parents = new Pare {First = pare.Second, Second = pare.First};
             return new[] { ind1, ind2 };
         }
     }

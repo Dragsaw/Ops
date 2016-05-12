@@ -61,7 +61,7 @@ namespace Gapp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("x1+x2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("(x1-3)^2+(x2-2)^2")]
         public string DefaultFunction {
             get {
                 return ((string)(this["DefaultFunction"]));

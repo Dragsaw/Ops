@@ -20,7 +20,7 @@ namespace Ls.LocalSearch
         {
             var step = 0.05;
             var newPoint = pointsFactory.Create(sourcePoint);
-            for (double i = lowerLimit.X; i < upperLimit.X; i += step)
+            for (double i = sourcePoint.X - 2; i < sourcePoint.X + 2 && i >= lowerLimit.X && i <= upperLimit.X; i += step)
             {
                 var newZ = func(i, newPoint.Y);
                 if (newZ < newPoint.Z)
@@ -30,7 +30,7 @@ namespace Ls.LocalSearch
                 }
             }
 
-            for (double i = lowerLimit.Y; i < upperLimit.Y; i += step)
+            for (double i = sourcePoint.Y - 2; i < sourcePoint.Y + 2 && i >= lowerLimit.Y && i <= upperLimit.Y; i += step)
             {
                 var newZ = func(newPoint.X, i);
                 if (newZ < newPoint.Z)
@@ -40,8 +40,8 @@ namespace Ls.LocalSearch
                 }
             }
 
-            var delta = (newPoint.Z - sourcePoint.Z) / sourcePoint.Z;
-            if (Math.Abs(delta) < 0.01 || double.IsInfinity(delta) || double.IsNaN(delta))
+            var delta = (newPoint.Z - sourcePoint.Z);
+            if (Math.Abs(delta) < 0.01)
             {
                 return null;
             }

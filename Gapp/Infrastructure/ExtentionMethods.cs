@@ -28,6 +28,18 @@ namespace Gapp.Infrastructure
             return algorithmAttribute.AlgorithmType;
         }
 
+        public static int IndexOf<T>(this LinkedList<T> linkedList, LinkedListNode<T> element)
+        {
+            var current = linkedList.First;
+            int i;
+            for (i = 0; current != null && current.Equals(element) == false; i++)
+            {
+                current = current.Next;
+            }
+
+            return i;
+        }
+
         public static void ShowIteration(this DataGridView grid, Iteration iteration, Action<IIndividual> addIndividual)
         {
             grid.Rows.Clear();

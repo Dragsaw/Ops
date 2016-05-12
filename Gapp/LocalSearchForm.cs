@@ -16,7 +16,10 @@ using Ga.Infrastructure;
 using Ga.Mutation;
 using Gapp.Infrastructure;
 using Gapp.Management;
+using Jace;
+using Ls;
 using Ls.Infrastructure;
+using Point = Ls.Infrastructure.Point;
 
 namespace Gapp
 {
@@ -26,7 +29,12 @@ namespace Gapp
         private ParallelGeneticAlgorithm algorithm;
         private AlgorithmInfo algorithmInfo;
         private OptimizationAlgorithmFactory optimizationFactory = new OptimizationAlgorithmFactory();
+        private readonly CalculationEngine engine = new CalculationEngine();
         private LinkedListNode<Iteration> currentIteration;
+        private Point upperLimit;
+        private Point lowerLimit;
+        private Func<double, double, double> function;
+        private Dictionary<string, OptimizationAlgorithm> optimizationsLog = new Dictionary<string, OptimizationAlgorithm>();
 
         public LocalSearchForm(AlgorithmInfo info)
         {
@@ -42,28 +50,45 @@ namespace Gapp
         {
             foreach (Control item in groupFunction.Controls)
             {
-                item.Enabled = false;
+                if (item is Button == false)
+                {
+                    item.Enabled = false;
+                }
             }
-
-            buttonRun.Enabled = true;
 
             if (algorithm == null)
             {
                 algorithm = CreateAlgorithm();
+                upperLimit = new Point { X = (double)numMaxX.Value, Y = (double)numMaxY.Value };
+                lowerLimit = new Point { X = (double)numMinX.Value, Y = (double)numMinY.Value };
+                function = (Func<double, double, double>)engine.Formula(textBoxFunction.Text)
+                    .Parameter("x1", DataType.FloatingPoint)
+                    .Parameter("x2", DataType.FloatingPoint)
+                    .Result(DataType.FloatingPoint)
+                    .Build();
             }
 
             algorithm.Run();
-            currentIteration = algorithm.History.First;
+            currentIteration = currentIteration ?? algorithm.History.First;
             ShowOtherIteration(new Button(), null);
         }
 
         private void HealthAction(IIndividual individual)
         {
-            // todo: get values from UI
-            var optimization = optimizationFactory.Create(individual, new Ls.Infrastructure.Point { X = 10, Y = 10 }, new Ls.Infrastructure.Point { X = 0, Y = 0 }, (x, y) => x + y);
+            var optimization = optimizationFactory.Create(individual, upperLimit, lowerLimit, function);
             optimization.Run();
             // todo: change this
             individual.Health = -optimization.Points.Min(point => point.Z);
+            lock (optimizationsLog)
+            {
+                var key = string.Format("{1}.{2}{3}", algorithm.History.Count - 1, individual.Generation, individual.Id, individual.IsMutant ? "m" : string.Empty);
+                if (optimizationsLog.ContainsKey(key) == false)
+                {
+                    optimizationsLog.Add(
+                        key,
+                        optimization);
+                }
+            }
         }
 
         private ParallelGeneticAlgorithm CreateAlgorithm()
@@ -133,7 +158,8 @@ namespace Gapp
         private void AddIndividual(IIndividual individual)
         {
             grid.Rows.Add(
-                string.Format("{0}.{1}{2}", individual.Generation, individual.Id, individual.IsMutant ? "m" : string.Empty),
+                GetId(individual),
+                string.Format("{0} + {1}", GetId(individual.Parents.First) ?? string.Empty, GetId(individual.Parents.Second) ?? string.Empty),
                 ((LsInitializationAlgorithms)individual.Genome.First(x => x.Name == "Initialization").Value).ToString(),
                 ((LsSelectionAlgorithms)individual.Genome.First(x => x.Name == "Selection").Value).ToString(),
                 ((LsLocalSearchAlgorithms)individual.Genome.First(x => x.Name == "Search").Value).ToString(),
@@ -143,6 +169,16 @@ namespace Gapp
                 -individual.Health,
                 string.Join("", individual.Genome.Select(x => x.Value))
                 );
+        }
+
+        private static string GetId(IIndividual individual)
+        {
+            if (individual == null)
+            {
+                return null;
+            }
+
+            return string.Format("{0}.{1}{2}", individual.Generation, individual.Id, individual.IsMutant ? "m" : string.Empty);
         }
 
         private void ShowOtherIteration(object sender, EventArgs e)
@@ -169,6 +205,15 @@ namespace Gapp
             buttonLast.Enabled = buttonNext.Enabled = currentIteration.Next != null;
 
             grid.ShowIteration(currentIteration.Value, AddIndividual);
+        }
+
+        private void buttonInfo_Click(object sender, EventArgs e)
+        {
+            var selected = grid.SelectedRows[0];
+            var index = algorithm.History.IndexOf(currentIteration);
+            var optimization = optimizationsLog[string.Format("{1}", index, selected.Cells["Id"].Value)];
+            var detailsForm = new OptimizationForm(optimization);
+            detailsForm.Show(this);
         }
     }
 }
