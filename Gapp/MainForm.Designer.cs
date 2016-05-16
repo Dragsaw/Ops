@@ -58,6 +58,8 @@
             this.numMinX = new System.Windows.Forms.NumericUpDown();
             this.textBoxFunction = new System.Windows.Forms.TextBox();
             this.buttonLocalSearch = new System.Windows.Forms.Button();
+            this.listMutate = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.GroupAlgorithm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numRunCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMutationChance)).BeginInit();
@@ -73,6 +75,8 @@
             // 
             // GroupAlgorithm
             // 
+            this.GroupAlgorithm.Controls.Add(this.listMutate);
+            this.GroupAlgorithm.Controls.Add(this.label11);
             this.GroupAlgorithm.Controls.Add(this.numRunCount);
             this.GroupAlgorithm.Controls.Add(this.buttonAdd);
             this.GroupAlgorithm.Controls.Add(this.buttonRunAll);
@@ -129,7 +133,7 @@
             // 
             this.listCrossover.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.listCrossover.FormattingEnabled = true;
-            this.listCrossover.Location = new System.Drawing.Point(294, 18);
+            this.listCrossover.Location = new System.Drawing.Point(298, 44);
             this.listCrossover.Name = "listCrossover";
             this.listCrossover.Size = new System.Drawing.Size(116, 21);
             this.listCrossover.TabIndex = 11;
@@ -137,7 +141,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(231, 21);
+            this.label6.Location = new System.Drawing.Point(235, 47);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(57, 13);
             this.label6.TabIndex = 10;
@@ -374,6 +378,24 @@
             this.buttonLocalSearch.UseVisualStyleBackColor = true;
             this.buttonLocalSearch.Click += new System.EventHandler(this.buttonLocalSearch_Click);
             // 
+            // listMutate
+            // 
+            this.listMutate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.listMutate.FormattingEnabled = true;
+            this.listMutate.Location = new System.Drawing.Point(298, 17);
+            this.listMutate.Name = "listMutate";
+            this.listMutate.Size = new System.Drawing.Size(116, 21);
+            this.listMutate.TabIndex = 29;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(235, 20);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(43, 13);
+            this.label11.TabIndex = 28;
+            this.label11.Text = "Mutate:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -436,6 +458,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown numRunCount;
         private System.Windows.Forms.Button buttonLocalSearch;
+        private System.Windows.Forms.ComboBox listMutate;
+        private System.Windows.Forms.Label label11;
     }
 }
 

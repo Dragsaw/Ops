@@ -75,8 +75,6 @@
     <Compile Include="Infrastructure\AlgorithmsGridView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Infrastructure\AlgorithmAttribute.cs" />
-    <Compile Include="Infrastructure\Enums.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +129,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Gared\Gared.csproj">
+      <Project>{96dff7c4-8846-4dd8-9095-2dfbb25cb63a}</Project>
+      <Name>Gared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ga\Ga.csproj">
       <Project>{18605075-ccee-4784-8c7b-306091b8d647}</Project>
       <Name>Ga</Name>

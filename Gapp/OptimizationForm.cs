@@ -23,16 +23,24 @@ namespace Gapp
             chart.Legends.Clear();
 
             var area = chart.ChartAreas.Add("area");
+            area.AxisX.Interval = 1;
+            area.AxisX.Minimum = 0;
+            area.AxisX.Maximum = 10;
+            area.AxisY.Interval = 1;
+            area.AxisY.Minimum = 0;
+            area.AxisY.Maximum = 10;
 
             foreach (var point in optimization.Points)
             {
                 var pointSeries = chart.Series.Add("points" + point.Id);
                 pointSeries.ChartType = SeriesChartType.Point;
+                pointSeries.MarkerStyle = MarkerStyle.Circle;;
                 var lineSeries = chart.Series.Add("lines" + point.Id);
                 lineSeries.ChartType = SeriesChartType.Line;
                 var startPoints = chart.Series.Add("start" + point.Id);
                 startPoints.ChartType = SeriesChartType.Point;
                 startPoints.MarkerSize = 10;
+                startPoints.MarkerStyle = MarkerStyle.Cross;
 
                 startPoints.Points.AddXY(Math.Round(point.X, 3), Math.Round(point.Y, 3));
                 lineSeries.Points.AddXY(Math.Round(point.X, 3), Math.Round(point.Y, 3));

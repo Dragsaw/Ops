@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Gapp.Infrastructure
+namespace Gared
 {
-    [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.All, Inherited = false)]
     public class AlgorithmAttribute : Attribute
     {
         public Type AlgorithmType { get; set; }

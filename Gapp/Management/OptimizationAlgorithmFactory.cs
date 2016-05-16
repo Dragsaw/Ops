@@ -18,9 +18,9 @@ namespace Gapp.Management
     {
         public OptimizationAlgorithm Create(IIndividual individual, Point upperLimit, Point lowerLimit, Func<double, double, double> func)
         {
-            var initialization = (LsInitializationAlgorithms)individual.Genome.First(x => x.Name == "Initialization").Value;
-            var selection = (LsSelectionAlgorithms)individual.Genome.First(x => x.Name == "Selection").Value;
-            var search = (LsLocalSearchAlgorithms)individual.Genome.First(x => x.Name == "Search").Value;
+            var initialization = (Ls.Infrastructure.InitializationAlgorithms)individual.Genome.First(x => x.Name == "Initialization").Value;
+            var selection = (Ls.Infrastructure.SelectionAlgorithms)individual.Genome.First(x => x.Name == "Selection").Value;
+            var search = (LocalSearchAlgorithms)individual.Genome.First(x => x.Name == "Search").Value;
             var initialCount = (int)individual.Genome.First(x => x.Name == "N").Value;
             var selectedCount = (int)individual.Genome.First(x => x.Name == "n").Value;
             var runCondition = (RunOptions)individual.Genome.First(x => x.Name == "Run").Value;

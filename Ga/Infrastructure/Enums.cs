@@ -1,10 +1,15 @@
-﻿using Ga.Crossover;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Ga.Crossover;
 using Ga.Initialization;
 using Ga.Selection;
 using Ga.Selection.PostGeneration;
-using Ls.LocalSearch;
+using Gared;
 
-namespace Gapp.Infrastructure
+namespace Ga.Infrastructure
 {
     public enum SelectionAlgorithms
     {
@@ -40,25 +45,10 @@ namespace Gapp.Infrastructure
         BestFromChildren
     }
 
-    public enum LsLocalSearchAlgorithms
+    public enum Mutate
     {
-        [Algorithm(typeof(GaussAlgorithm))]
-        Gauss
-    }
-
-    public enum LsSelectionAlgorithms
-    {
-        //[Algorithm(typeof(RandomSelectionAlgorithm))]
-        //Random,
-        [Algorithm(typeof(Ls.Selection.BestNSelectionAlgorithm))]
-        BestN
-    }
-
-    public enum LsInitializationAlgorithms
-    {
-        [Algorithm(typeof(Ls.Initialization.RandomInitializationAlgorithm))]
-        Random,
-        //[Algorithm(typeof(GridInitializationAlgorithm))]
-        //Grid
+        Children,
+        Parents,
+        ParentsAndChildren
     }
 }

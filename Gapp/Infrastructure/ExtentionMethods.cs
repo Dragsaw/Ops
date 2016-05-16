@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Ga.Individuals;
 using Ga.Infrastructure;
+using Gared;
 
 namespace Gapp.Infrastructure
 {

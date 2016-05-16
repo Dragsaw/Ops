@@ -33,7 +33,6 @@ namespace Gapp.Management
             return new ParallelGeneticAlgorithm(
                 initialization,
                 selection,
-                // todo: разбитие на пары
                 new BestParingAlgorithm(),
                 crossover,
                 mutation,
@@ -43,7 +42,9 @@ namespace Gapp.Management
                 info.MutationChance,
                 // todo: заменить на число
                 null,
-                chromosomes);
+                info.Mutate,
+                chromosomes
+                );
         }
     }
 }

@@ -47,6 +47,7 @@
     <Compile Include="Infrastructure\IndividualsEventArgs.cs" />
     <Compile Include="Infrastructure\IndividualsFactory.cs" />
     <Compile Include="Infrastructure\Iteration.cs" />
+    <Compile Include="Infrastructure\Enums.cs" />
     <Compile Include="Initialization\GridInitializationAlgorithm.cs" />
     <Compile Include="Mutation\ClassicDecimalMutation.cs" />
     <Compile Include="ParallelGeneticAlgorithm.cs" />
@@ -76,7 +77,12 @@
     <Compile Include="Selection\PostGeneration\PostGenerationSelectBestFromChildren.cs" />
     <Compile Include="Selection\RandomSelectionAlgorithm.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Gared\Gared.csproj">
+      <Project>{96dff7c4-8846-4dd8-9095-2dfbb25cb63a}</Project>
+      <Name>Gared</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

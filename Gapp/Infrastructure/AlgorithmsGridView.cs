@@ -57,6 +57,13 @@ namespace Gapp.Infrastructure
             mutationCol.FillWeight = 0.12f;
             this.Columns.Add(mutationCol);
 
+            var mutateCol = new DataGridViewTextBoxColumn();
+            mutateCol.DataPropertyName = "MutateName";
+            mutateCol.Name = "Mutate";
+            mutateCol.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            mutateCol.FillWeight = 0.12f;
+            this.Columns.Add(mutateCol);
+
             var postGenerationSelectionCol = new DataGridViewTextBoxColumn();
             postGenerationSelectionCol.DataPropertyName = "PostGenerationSelectionName";
             postGenerationSelectionCol.Name = "Post Generation Selection";

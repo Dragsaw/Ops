@@ -8,7 +8,7 @@ namespace Ga.Selection
     {
         public IEnumerable<IIndividual> Select(IEnumerable<IIndividual> individuals, int take)
         {
-            return individuals.OrderByDescending(x => x.Health).ThenBy(x => x.Generation).Take(take);
+            return individuals.OrderByDescending(x => x.Health).ThenBy(x => x.Id).Take(take);
         }
     }
 }

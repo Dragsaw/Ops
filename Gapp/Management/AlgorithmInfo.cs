@@ -10,12 +10,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Ga.Infrastructure;
 
 namespace Gapp.Management
 {
     public class AlgorithmInfo
     {
-        private Type _mutationAlgorithm = typeof(ClassicMutation);
+        private Type mutationAlgorithm = typeof(ClassicMutation);
         public int PopulationSize { get; set; }
         public SelectionAlgorithms Selection { get; set; }
         public InitializationAlgorithms Initialization { get; set; }
@@ -25,16 +26,18 @@ namespace Gapp.Management
         public double? Rating { get; set; }
         public ParallelGeneticAlgorithm Algorithm { get; set; }
         public Type CrossoverAlgorithmType { get; set; }
+        public Mutate Mutate { get; set; }
         public Type MutationAlgorithmType
         {
-            get { return _mutationAlgorithm; }
-            set { _mutationAlgorithm = value; }
+            get { return mutationAlgorithm; }
+            set { mutationAlgorithm = value; }
         }
 
         public string SelectionName { get { return this.Selection.ToString(); } }
         public string InitializationName { get { return this.Initialization.ToString(); } }
         public string CrossoverName { get { return this.Crossover.ToString(); } }
         public string PostGenerationSelectionName { get { return this.PostGenerationSelection.ToString(); } }
+        public string MutateName { get { return this.Mutate.ToString(); } }
 
         public AlgorithmInfo Copy()
         {

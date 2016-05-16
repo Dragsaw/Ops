@@ -41,7 +41,7 @@ namespace Gapp
             InitializeComponent();
             algorithmInfo = info.Copy();
             algorithmInfo.MutationAlgorithmType = typeof(ClassicDecimalMutation);
-            algorithmInfo.CrossoverAlgorithmType = info.Crossover == Infrastructure.CrossoverAlgorithms.SinglePoint
+            algorithmInfo.CrossoverAlgorithmType = info.Crossover == CrossoverAlgorithms.SinglePoint
                 ? typeof(DecimalSinglePointCrossoverAlgorithm)
                 : typeof(DecimalDoublePointCrossoverAlgorithm);
         }
@@ -98,7 +98,7 @@ namespace Gapp
             {
                 Name = "Initialization",
                 LowerLimit = 0,
-                UpperLimit = Enum.GetValues(typeof(LsInitializationAlgorithms)).Length,
+                UpperLimit = Enum.GetValues(typeof(Ls.Infrastructure.InitializationAlgorithms)).Length,
                 Scale = 0
             };
 
@@ -106,7 +106,7 @@ namespace Gapp
             {
                 Name = "Selection",
                 LowerLimit = 0,
-                UpperLimit = Enum.GetValues(typeof(LsSelectionAlgorithms)).Length,
+                UpperLimit = Enum.GetValues(typeof(Ls.Infrastructure.SelectionAlgorithms)).Length,
                 Scale = 0
             };
 
@@ -114,7 +114,7 @@ namespace Gapp
             {
                 Name = "Search",
                 LowerLimit = 0,
-                UpperLimit = Enum.GetValues(typeof(LsLocalSearchAlgorithms)).Length,
+                UpperLimit = Enum.GetValues(typeof(LocalSearchAlgorithms)).Length,
                 Scale = 0
             };
 
@@ -160,9 +160,9 @@ namespace Gapp
             grid.Rows.Add(
                 GetId(individual),
                 string.Format("{0} + {1}", GetId(individual.Parents.First) ?? string.Empty, GetId(individual.Parents.Second) ?? string.Empty),
-                ((LsInitializationAlgorithms)individual.Genome.First(x => x.Name == "Initialization").Value).ToString(),
-                ((LsSelectionAlgorithms)individual.Genome.First(x => x.Name == "Selection").Value).ToString(),
-                ((LsLocalSearchAlgorithms)individual.Genome.First(x => x.Name == "Search").Value).ToString(),
+                ((Ls.Infrastructure.InitializationAlgorithms)individual.Genome.First(x => x.Name == "Initialization").Value).ToString(),
+                ((Ls.Infrastructure.SelectionAlgorithms)individual.Genome.First(x => x.Name == "Selection").Value).ToString(),
+                ((Ls.Infrastructure.LocalSearchAlgorithms)individual.Genome.First(x => x.Name == "Search").Value).ToString(),
                 individual.Genome.First(x => x.Name == "N").Value,
                 individual.Genome.First(x => x.Name == "n").Value,
                 ((RunOptions)individual.Genome.First(x => x.Name == "Run").Value).ToString(),

@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Ga.Infrastructure;
 
 namespace Gapp
 {
@@ -29,6 +30,7 @@ namespace Gapp
             listSelection.DataSource = Enum.GetValues(typeof(SelectionAlgorithms));
             listPostGenerationSelection.DataSource = Enum.GetValues(typeof(PostGenerationSelectionAlgorithms));
             listCrossover.DataSource = Enum.GetValues(typeof(CrossoverAlgorithms));
+            listMutate.DataSource = Enum.GetValues(typeof(Mutate));
 
             this.Controls.Add(grid);
         }
@@ -42,7 +44,8 @@ namespace Gapp
                 MutationChance = (double)numMutationChance.Value,
                 PopulationSize = (int)numN.Value,
                 PostGenerationSelection = (PostGenerationSelectionAlgorithms)listPostGenerationSelection.SelectedValue,
-                Selection = (SelectionAlgorithms)listSelection.SelectedValue
+                Selection = (SelectionAlgorithms)listSelection.SelectedValue,
+                Mutate = (Mutate)listMutate.SelectedValue
             });
         }
 

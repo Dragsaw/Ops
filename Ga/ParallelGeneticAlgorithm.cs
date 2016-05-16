@@ -30,14 +30,15 @@ namespace Ga
         private readonly double mutationChance;
         private readonly int? returnIndividualsCount;
         private readonly object syncToken = new object();
+        private readonly Mutate mutate;
         private List<IIndividual> population;
-        
+
         public LinkedList<Iteration> History { get; }
         public IIndividual BestIndividual
         {
             get
             {
-                return population.OrderByDescending(x => x.Health).ThenBy(x => x.Id).First(x => x.IsHealthy);
+                return population.OrderByDescending(x => x.Health).ThenBy(x => x.Id).FirstOrDefault(x => x.IsHealthy);
             }
         }
 
@@ -52,6 +53,7 @@ namespace Ga
             int populationSize,
             double mutationChance,
             int? returnIndividualsCount,
+            Mutate mutate,
             params IChromosome[] chromosomes)
         {
             this.initialization = initialization;
@@ -65,6 +67,7 @@ namespace Ga
             this.genome = chromosomes;
             this.mutationChance = mutationChance;
             this.returnIndividualsCount = returnIndividualsCount;
+            this.mutate = mutate;
 
             History = new LinkedList<Iteration>();
         }
@@ -81,7 +84,13 @@ namespace Ga
                 return;
             }
 
+            var best = this.BestIndividual;
             population = selection.Select(population, populationSize).ToList();
+            if (best != null && population.Contains(best) == false)
+            {
+                population.Add(best);
+            }
+
             History.Last.Value.InitialPopulation = population;
             var tasks = new Task<IEnumerable<IIndividual>>[population.Count / 2];
             for (int i = 0; i < population.Count / 2; i++)
@@ -92,8 +101,7 @@ namespace Ga
             Task.WhenAll(tasks).Wait();
 
             population = tasks.SelectMany(x => x.Result).Distinct().ToList();
-            var best = this.BestIndividual;
-            if (population.Contains(best) == false)
+            if (best != null && population.Contains(best) == false)
             {
                 population.Add(best);
             }
@@ -106,22 +114,30 @@ namespace Ga
             do
             {
                 Run();
-            }
-            while (condition(this));
+            } while (condition(this));
         }
 
         private IEnumerable<IIndividual> RunProcess()
         {
             var selected = randomSelection
                 .Select(population, 4);
-            // todo: мутация на родителях или потомках
+            if (mutate == Mutate.Parents || mutate == Mutate.ParentsAndChildren)
+            {
+                selected = selected.Select(x => mutation.Mutate(x, mutationChance) ?? x);
+            }
+
             var parents = paring.Pare(selected);
             var children = crossover.Crossover(parents, currentGeneration).ToList();
-            var mutants = children
-                .Select(x => mutation.Mutate(x, mutationChance))
-                .Where(mutant => mutant != null)
-                .ToArray();
-            children.AddRange(mutants);
+
+            if (mutate == Mutate.Children || mutate == Mutate.ParentsAndChildren)
+            {
+                var mutants = children
+                  .Select(x => mutation.Mutate(x, mutationChance))
+                  .Where(mutant => mutant != null)
+                  .ToArray();
+                children.AddRange(mutants);
+            }
+
             foreach (var child in children)
             {
                 if (child.IsHealthy)
