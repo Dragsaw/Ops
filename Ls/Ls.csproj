@@ -45,12 +45,14 @@
     <Compile Include="Infrastructure\PointsFactory.cs" />
     <Compile Include="Initialization\IInitializationAlgorithm.cs" />
     <Compile Include="Initialization\RandomInitializationAlgorithm.cs" />
+    <Compile Include="LocalSearch\BestSampleAlgorithm.cs" />
     <Compile Include="OptimizationAlgorithm.cs" />
     <Compile Include="LocalSearch\GaussAlgorithm.cs" />
     <Compile Include="LocalSearch\ILocalSearchAlgorithm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Selection\BestNSelectionAlgorithm.cs" />
     <Compile Include="Selection\ISelectionAlgorithm.cs" />
+    <Compile Include="Selection\RandomSelectionAlgorithm.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gared\Gared.csproj">

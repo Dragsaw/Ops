@@ -30,14 +30,16 @@ namespace Gapp
             area.AxisY.Minimum = 0;
             area.AxisY.Maximum = 10;
 
-            foreach (var point in optimization.Points)
+            var pointsList = optimization.Points.ToList();
+            for (int i = 0; i < pointsList.Count; i++)
             {
-                var pointSeries = chart.Series.Add("points" + point.Id);
+                var point = pointsList[i];
+                var pointSeries = chart.Series.Add("points" + i);
                 pointSeries.ChartType = SeriesChartType.Point;
-                pointSeries.MarkerStyle = MarkerStyle.Circle;;
-                var lineSeries = chart.Series.Add("lines" + point.Id);
+                pointSeries.MarkerStyle = MarkerStyle.Circle; ;
+                var lineSeries = chart.Series.Add("lines" + i);
                 lineSeries.ChartType = SeriesChartType.Line;
-                var startPoints = chart.Series.Add("start" + point.Id);
+                var startPoints = chart.Series.Add("start" + i);
                 startPoints.ChartType = SeriesChartType.Point;
                 startPoints.MarkerSize = 10;
                 startPoints.MarkerStyle = MarkerStyle.Cross;

@@ -78,7 +78,23 @@ namespace Gapp
             var optimization = optimizationFactory.Create(individual, upperLimit, lowerLimit, function);
             optimization.Run();
             // todo: change this
-            individual.Health = -optimization.Points.Min(point => point.Z);
+            // todo: где-то баг?
+            var minZ = optimization.Points.First().Z;
+            foreach (var point in optimization.Points)
+            {
+                var lastPoint = point;
+                while (lastPoint.Next != null)
+                {
+                    lastPoint = lastPoint.Next;
+                }
+
+                if (lastPoint.Z < minZ)
+                {
+                    minZ = lastPoint.Z;
+                }
+            }
+
+            individual.Health = -minZ;
             lock (optimizationsLog)
             {
                 var key = string.Format("{1}.{2}{3}", algorithm.History.Count - 1, individual.Generation, individual.Id, individual.IsMutant ? "m" : string.Empty);

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Gared;
 using Ls.LocalSearch;
+using Ls.Selection;
+using Ls.Initialization;
 
 namespace Ls.Infrastructure
 {
@@ -13,20 +15,22 @@ namespace Ls.Infrastructure
     public enum LocalSearchAlgorithms
     {
         [Algorithm(typeof(GaussAlgorithm))]
-        Gauss
+        Gauss,
+        [Algorithm(typeof(BestSampleAlgorithm))]
+        BestSample
     }
 
     public enum SelectionAlgorithms
     {
-        //[Algorithm(typeof(RandomSelectionAlgorithm))]
-        //Random,
-        [Algorithm(typeof(Ls.Selection.BestNSelectionAlgorithm))]
+        [Algorithm(typeof(RandomSelectionAlgorithm))]
+        Random,
+        [Algorithm(typeof(BestNSelectionAlgorithm))]
         BestN
     }
 
     public enum InitializationAlgorithms
     {
-        [Algorithm(typeof(Ls.Initialization.RandomInitializationAlgorithm))]
+        [Algorithm(typeof(RandomInitializationAlgorithm))]
         Random,
         //[Algorithm(typeof(GridInitializationAlgorithm))]
         //Grid

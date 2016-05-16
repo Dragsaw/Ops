@@ -80,7 +80,7 @@ namespace Gapp
             series.MarkerStyle = healthyMarker;
             series.Color = healthyColor;
 
-            buttonPrevious.Enabled = false;
+            buttonFirst.Enabled = buttonPrevious.Enabled = false;
             currentIteration = algorithm.History.First;
             grid.ShowIteration(currentIteration.Value, AddIndividual);
         }
@@ -144,12 +144,16 @@ namespace Gapp
             {
                 currentIteration = currentIteration.Previous;
             }
-            else
+            else if (button.Text == ">>")
             {
                 currentIteration = currentIteration.List.Last;
             }
+            else if (button.Text == "<<")
+            {
+                currentIteration = currentIteration.List.First;
+            }
 
-            buttonPrevious.Enabled = currentIteration.Previous != null;
+            buttonFirst.Enabled = buttonPrevious.Enabled = currentIteration.Previous != null;
             buttonLast.Enabled = buttonNext.Enabled = currentIteration.Next != null;
 
             grid.ShowIteration(currentIteration.Value, AddIndividual);

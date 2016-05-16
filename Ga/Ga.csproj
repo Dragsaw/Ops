@@ -76,6 +76,7 @@
     <Compile Include="Selection\PostGeneration\PostGenerationSelectBestFromAll.cs" />
     <Compile Include="Selection\PostGeneration\PostGenerationSelectBestFromChildren.cs" />
     <Compile Include="Selection\RandomSelectionAlgorithm.cs" />
+    <Compile Include="Selection\TournamentSelectionAlgorithm.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gared\Gared.csproj">

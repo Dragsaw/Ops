@@ -36,6 +36,7 @@
             this.buttonPrevious = new System.Windows.Forms.Button();
             this.buttonNext = new System.Windows.Forms.Button();
             this.buttonLast = new System.Windows.Forms.Button();
+            this.buttonFirst = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             this.SuspendLayout();
@@ -73,7 +74,7 @@
             // buttonPrevious
             // 
             this.buttonPrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonPrevious.Location = new System.Drawing.Point(12, 426);
+            this.buttonPrevious.Location = new System.Drawing.Point(48, 426);
             this.buttonPrevious.Name = "buttonPrevious";
             this.buttonPrevious.Size = new System.Drawing.Size(75, 23);
             this.buttonPrevious.TabIndex = 2;
@@ -103,11 +104,22 @@
             this.buttonLast.UseVisualStyleBackColor = true;
             this.buttonLast.Click += new System.EventHandler(this.ShowOtherIteration);
             // 
+            // buttonFirst
+            // 
+            this.buttonFirst.Location = new System.Drawing.Point(12, 426);
+            this.buttonFirst.Name = "buttonFirst";
+            this.buttonFirst.Size = new System.Drawing.Size(30, 23);
+            this.buttonFirst.TabIndex = 31;
+            this.buttonFirst.Text = "<<";
+            this.buttonFirst.UseVisualStyleBackColor = true;
+            this.buttonFirst.Click += new System.EventHandler(this.ShowOtherIteration);
+            // 
             // AlgorithmDetailsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 461);
+            this.Controls.Add(this.buttonFirst);
             this.Controls.Add(this.buttonLast);
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.buttonPrevious);
@@ -128,5 +140,6 @@
         private System.Windows.Forms.Button buttonPrevious;
         private System.Windows.Forms.Button buttonNext;
         private System.Windows.Forms.Button buttonLast;
+        private System.Windows.Forms.Button buttonFirst;
     }
 }

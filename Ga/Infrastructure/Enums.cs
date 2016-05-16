@@ -16,7 +16,9 @@ namespace Ga.Infrastructure
         [Algorithm(typeof(RandomSelectionAlgorithm))]
         Random,
         [Algorithm(typeof(BestNSelectionAlgorithm))]
-        BestN
+        BestN,
+        [Algorithm(typeof(TournamentSelectionAlgorithm))]
+        Tournament
     }
 
     public enum InitializationAlgorithms

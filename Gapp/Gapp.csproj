@@ -138,7 +138,7 @@
       <Name>Ga</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ls\Ls.csproj">
-      <Project>{89428FC5-5DF5-49A3-8824-36C21E2660BD}</Project>
+      <Project>{89428fc5-5df5-49a3-8824-36c21e2660bd}</Project>
       <Name>Ls</Name>
     </ProjectReference>
   </ItemGroup>
