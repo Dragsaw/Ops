@@ -25,7 +25,7 @@ namespace Ga.Initialization
             var rowLength = (int)Math.Pow(individualsCount, 1.0 / chromosomes.Length);
             for (int i = 0; i < chromosomes.Length; i++)
             {
-                var step = (chromosomes[i].UpperLimit - chromosomes[i].LowerLimit) / (rowLength - 1);
+                var step = rowLength == 1 ? 1 : (chromosomes[i].UpperLimit - chromosomes[i].LowerLimit) / (rowLength - 1);
                 sequences[i] = new double[rowLength];
                 for (int j = 0; j < rowLength; j++)
                 {
