@@ -28,6 +28,7 @@ namespace Ga.Selection.PostGeneration
                     return list;
                 }); ;
             return result
+                .Where(ind => ind != null)
                 .OrderByDescending(ind => ind.Health)
                 .ThenBy(ind => ind.Id)
                 .Take(count ?? result.Count);

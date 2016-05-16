@@ -34,7 +34,7 @@ namespace Gapp.Management
                 initialization,
                 selection,
                 // todo: разбитие на пары
-                new RandomParingAlgorithm(),
+                new BestParingAlgorithm(),
                 crossover,
                 mutation,
                 postGenerationSelection,

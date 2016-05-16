@@ -14,27 +14,25 @@ using System.Threading.Tasks;
 
 namespace Ga
 {
-    // todo: add iteration details
-    // todo: fix post generation selection
     public class ParallelGeneticAlgorithm
     {
-        private int currentGeneration = 1;
-        private IInitializationAlgorithm initialization;
-        private ISelectionAlgorithm selection;
-        private IParingAlgorithm paring;
-        private ICrossoverAlgorithm crossover;
-        private IMutationAlgorithm mutation;
-        private IPostGenerationSelectionAlgorithm postGenerationSelection;
-        private Action<IIndividual> healthAction;
+        private int currentGeneration;
+        private readonly IInitializationAlgorithm initialization;
+        private readonly ISelectionAlgorithm selection;
+        private readonly ISelectionAlgorithm randomSelection = new RandomSelectionAlgorithm();
+        private readonly IParingAlgorithm paring;
+        private readonly ICrossoverAlgorithm crossover;
+        private readonly IMutationAlgorithm mutation;
+        private readonly IPostGenerationSelectionAlgorithm postGenerationSelection;
+        private readonly Action<IIndividual> healthAction;
+        private readonly int populationSize;
+        private readonly IChromosome[] genome;
+        private readonly double mutationChance;
+        private readonly int? returnIndividualsCount;
+        private readonly object syncToken = new object();
         private List<IIndividual> population;
-        private int populationSize;
-        private IChromosome[] genome;
-        private double mutationChance;
-        private int? returnIndividualsCount;
-        private object syncToken = new object();
-
-        public IEnumerable<IIndividual> Population { get { return population; } }
-        public LinkedList<Iteration> History { get; private set; }
+        
+        public LinkedList<Iteration> History { get; }
         public IIndividual BestIndividual
         {
             get
@@ -68,44 +66,39 @@ namespace Ga
             this.mutationChance = mutationChance;
             this.returnIndividualsCount = returnIndividualsCount;
 
-            this.History = new LinkedList<Iteration>();
+            History = new LinkedList<Iteration>();
         }
 
         public void Run()
         {
+            currentGeneration++;
             History.AddLast(new Iteration());
-            if (this.History.Count == 1)
+            if (History.Count == 1)
             {
                 population = initialization.Initialize(populationSize, genome).ToList();
                 population.Where(x => x.IsHealthy).AsParallel().ForAll(this.healthAction);
-                History.Last.Value.InitialPopulation = this.Population;
+                History.Last.Value.InitialPopulation = population;
                 return;
             }
 
-            population = population
-                .Where(x => x.IsHealthy)
-                .OrderByDescending(x => x.Health)
-                .ThenBy(x => x.Id)
-                .Take(populationSize)
-                .ToList();
-            History.Last.Value.InitialPopulation = this.Population;
-            currentGeneration++;
+            population = selection.Select(population, populationSize).ToList();
+            History.Last.Value.InitialPopulation = population;
             var tasks = new Task<IEnumerable<IIndividual>>[population.Count / 2];
             for (int i = 0; i < population.Count / 2; i++)
             {
-                tasks[i] = new Task<IEnumerable<IIndividual>>(RunProcess);
-                tasks[i].Start();
+                tasks[i] = Task.Run(() => RunProcess());
             }
 
-            Task.WaitAll(tasks);
-            var best = this.BestIndividual;
+            Task.WhenAll(tasks).Wait();
+
             population = tasks.SelectMany(x => x.Result).Distinct().ToList();
+            var best = this.BestIndividual;
             if (population.Contains(best) == false)
             {
                 population.Add(best);
             }
 
-            History.Last.Value.PostGenerationSelected = this.Population;
+            History.Last.Value.PostGenerationSelected = population;
         }
 
         public void Solve(Func<ParallelGeneticAlgorithm, bool> condition)
@@ -119,15 +112,9 @@ namespace Ga
 
         private IEnumerable<IIndividual> RunProcess()
         {
-            var firstSelection = selection
-                .Select(population, 2)
-                .ToList();
-            var secondSelection = selection
-                .Select(population, 2)
-                .ToList();
-            var selected = firstSelection.Concat(secondSelection);
+            var selected = randomSelection
+                .Select(population, 4);
             // todo: мутация на родителях или потомках
-            // todo: изменить разбитие на пары
             var parents = paring.Pare(selected);
             var children = crossover.Crossover(parents, currentGeneration).ToList();
             var mutants = children
@@ -152,7 +139,7 @@ namespace Ga
                 History.Last.Value.Children.AddRange(children);
             }
 
-            return postGenerationSelection.Select(children, returnIndividualsCount).Where(x => x != null);
+            return postGenerationSelection.Select(children, returnIndividualsCount);
         }
     }
 }

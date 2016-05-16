@@ -62,6 +62,7 @@
     <Compile Include="Initialization\RandomInitializationAlgorithm.cs" />
     <Compile Include="Mutation\ClassicMutation.cs" />
     <Compile Include="Mutation\IMutationAlgorithm.cs" />
+    <Compile Include="Paring\BestParingAlgorithm.cs" />
     <Compile Include="Paring\IParingAlgorithm.cs" />
     <Compile Include="Paring\IPare.cs" />
     <Compile Include="Paring\Pare.cs" />

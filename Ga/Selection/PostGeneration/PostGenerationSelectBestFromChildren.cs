@@ -13,6 +13,7 @@ namespace Ga.Selection.PostGeneration
         {
             return children
                 .Where(child => child.IsHealthy)
+                .Where(child => child != null)
                 .OrderByDescending(child => child.Health)
                 .ThenBy(child => child.Id)
                 .Take(count ?? children.Count());

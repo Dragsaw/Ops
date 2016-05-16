@@ -27,7 +27,7 @@ namespace Ga.Selection.PostGeneration
 
                     return list;
                 });
-            return result.Take(count ?? result.Count);
+            return result.Where(x => x != null).Take(count ?? result.Count);
         }
     }
 }
